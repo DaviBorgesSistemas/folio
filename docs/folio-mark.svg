@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Folio">
+  <!-- Marca do Folio para usar DENTRO do app, sobre uma peça de vidro (fundo transparente) -->
+  <defs>
+    <linearGradient id="fm-card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7F7FF"/>
+      <stop offset="1" stop-color="#D4D7FF"/>
+    </linearGradient>
+    <linearGradient id="fm-far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9AA0FF"/>
+      <stop offset="1" stop-color="#6E75F2"/>
+    </linearGradient>
+    <linearGradient id="fm-near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#434AC2"/>
+      <stop offset="1" stop-color="#272A78"/>
+    </linearGradient>
+    <linearGradient id="fm-sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFC890"/>
+      <stop offset="1" stop-color="#FF8A78"/>
+    </linearGradient>
+    <clipPath id="fm-clip"><rect x="44" y="50" width="168" height="168" rx="38"/></clipPath>
+    <filter id="fm-shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#7A80FF" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- cartões de trás, em leque -->
+  <g transform="rotate(-16 128 134)">
+    <rect x="52" y="32" width="152" height="176" rx="36" fill="#BFC2FF" fill-opacity="0.30"/>
+  </g>
+  <g transform="rotate(11 128 134)">
+    <rect x="52" y="40" width="152" height="176" rx="36" fill="#BFC2FF" fill-opacity="0.55"/>
+  </g>
+
+  <!-- foto da frente -->
+  <g filter="url(#fm-shadow)">
+    <rect x="44" y="50" width="168" height="168" rx="38" fill="url(#fm-card)"/>
+  </g>
+  <g clip-path="url(#fm-clip)">
+    <circle cx="172" cy="92" r="17" fill="url(#fm-sun)"/>
+    <path d="M44 190 L108 114 L162 178 L190 150 L212 174 L212 218 L44 218 Z" fill="url(#fm-far)"/>
+    <path d="M44 218 L44 198 L96 152 L140 198 L174 166 L212 202 L212 218 Z" fill="url(#fm-near)"/>
+  </g>
+  <rect x="45" y="51" width="166" height="166" rx="37" fill="none" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="1.5"/>
+</svg>
