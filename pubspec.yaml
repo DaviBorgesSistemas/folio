@@ -40,6 +40,7 @@ dependencies:
   shared_preferences: ^2.5.5
   pro_image_editor: ^12.0.0
   share_plus: ^12.0.2
+  flutter_svg: ^2.3.0
 
 dev_dependencies:
   flutter_test:
