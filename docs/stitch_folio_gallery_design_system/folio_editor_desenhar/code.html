@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#121318;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-primary-fixed-variant": "#3e4276", "surface-dim": "#121318", "tertiary": "#ffdad6", "on-tertiary": "#51221d", "tertiary-fixed": "#ffdad5", "on-secondary": "#2b2d50", "on-error": "#690005", "on-secondary-fixed-variant": "#424468", "on-secondary-fixed": "#16183a", "on-primary-container": "#4a4e83", "secondary-fixed": "#e0e0ff", "surface-bright": "#38393e", "primary-fixed": "#e0e0ff", "secondary": "#c2c3ee", "error-container": "#93000a", "primary": "#e1e0ff", "background": "#121318", "on-primary": "#282b5e", "surface": "#121318", "surface-tint": "#bfc2ff", "on-surface": "#e3e1e9", "inverse-surface": "#e3e1e9", "on-secondary-container": "#b4b5e0", "secondary-fixed-dim": "#c2c3ee", "surface-container-low": "#1a1b20", "surface-container-lowest": "#0d0e13", "tertiary-container": "#ffb4ab", "surface-container": "#1e1f25", "inverse-primary": "#565a8f", "on-primary-fixed": "#121548", "secondary-container": "#44466a", "primary-container": "#bfc2ff", "on-error-container": "#ffdad6", "surface-container-highest": "#34343a", "surface-container-high": "#292a2f", "tertiary-fixed-dim": "#ffb4ab", "outline": "#918f9a", "on-background": "#e3e1e9", "on-surface-variant": "#c7c5d0", "error": "#ffb4ab", "primary-fixed-dim": "#bfc2ff", "outline-variant": "#46464f", "on-tertiary-fixed": "#360e0a", "surface-variant": "#34343a", "on-tertiary-container": "#7a433d", "on-tertiary-fixed-variant": "#6c3832", "inverse-on-surface": "#2f3036" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "0.875rem", "gutter": "0.25rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "space-md": "0.875rem", "space-lg": "1rem", "space-xl": "1.5rem" }, fontFamily: { "headline-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "title-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-sm": ["20px", { lineHeight: "26px", letterSpacing: "0em", fontWeight: "700" }], "label-md": ["14px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "600" }], "label-sm": ["13px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500" }], "title-sm": ["16px", { lineHeight: "22px", letterSpacing: "0em", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "22px", letterSpacing: "0.01em", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", letterSpacing: "0.01em", fontWeight: "400" }], "display-lg": ["64px", { lineHeight: "72px", letterSpacing: "-0.02em", fontWeight: "800" }], "headline-md": ["22px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "800" }], "body-sm": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "400" }], "title-md": ["17px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "700" }], "headline-lg": ["34px", { lineHeight: "42px", letterSpacing: "-0.02em", fontWeight: "800" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen pt-safe pb-safe"><main class="flex flex-col relative w-full bg-surface min-h-screen"><div class="flex flex-col w-full select-none" id="folio-editor-app">
+<!-- Top Bar -->
+<header class="h-16 px-4 flex items-center justify-between shrink-0 z-30">
+<button aria-label="Fechar" class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface active:scale-95 transition-transform duration-150" type="button">
+<span class="material-symbols-outlined text-body-lg">close</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Editar</h1>
+<div class="flex items-center gap-2">
+<button class="h-11 px-3.5 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md active:bg-surface-container-highest transition-colors" type="button">
+        Restaurar
+      </button>
+<button class="h-11 px-5 flex items-center justify-center rounded-full bg-primary-container text-on-primary font-title-sm text-title-sm shadow-md active:scale-95 transition-all duration-150" type="button">
+        Salvar
+      </button>
+</div>
+</header>
+<!-- Photo Stage (Invariance: crisp, pristine media, no translucent card background) -->
+<section class="flex items-center justify-center p-3 relative overflow-hidden shrink-0" style="height: 380px; background-color: #0A0A0B;">
+<div class="relative w-full max-w-[340px] aspect-[4/5] rounded-[6px] overflow-hidden shadow-2xl flex items-center justify-center">
+<!-- Media Canvas Source -->
+<img class="w-full h-full object-cover select-none pointer-events-none" data-alt="Stylized dramatic dusk city skyline photo at golden hour turning deep blue, architectural glass towers with glowing golden interior windows, smooth reflective twilight river below, clear gradient twilight sky with a subtle pale crescent moon, rich moody cinematic contrasts." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv1GqfleWvAzAo9no6A_AlGauS2swujxCdRQNDtey_oA30r0bFG36OqLxi2AUtH9LC91pR3StDTKvbE7V_7UjpKLNiwRG1VNPPVszBhhfj54O_yQfGDmyGtX-le6IAXUo6dr4NiLLgh_eFe22DHQHpQ4HUkbV9_i3dR2lO7QeqrNjJnCMKJAKYZwAMZMft5IE79pSZNoxcLXYRhen9t4rdrm38_-wkRGfua7MzQeE"/>
+<!-- Artistic Overlay: Vector Brush Strokes Layer -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" fill="none" viewbox="0 0 340 425" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="140%" id="brush-glow-coral" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="3" flood-color="#FF5A5F" flood-opacity="0.45" stddeviation="3"></fedropshadow>
+</filter>
+<filter height="140%" id="brush-glow-white" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="2" flood-color="#000000" flood-opacity="0.35" stddeviation="2.5"></fedropshadow>
+</filter>
+</defs>
+<!-- Hand-drawn fluid ribbon 1 (Coral) -->
+<path d="M 45 320 C 70 230, 140 180, 210 240 C 270 290, 310 260, 305 170" filter="url(#brush-glow-coral)" stroke="#FF5A5F" stroke-linecap="round" stroke-linejoin="round" stroke-width="9"></path>
+<!-- Hand-drawn curve stroke 2 (White highlight) -->
+<path d="M 95 145 C 130 90, 185 85, 235 125 C 270 150, 280 140, 290 100" filter="url(#brush-glow-white)" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+</svg>
+<!-- Interactive Micro-Indicator of active brush head in canvas -->
+<div class="absolute pointer-events-none w-3.5 h-3.5 rounded-full bg-white shadow-lg ring-2 ring-primary-container/40" id="brush-preview-dot" style="bottom: 74px; right: 86px;"></div>
+</div>
+</section>
+<!-- Drawing Tool Panel (168px Height) -->
+<section class="h-[168px] px-4 pt-3 pb-2 flex flex-col justify-between shrink-0 bg-surface">
+<!-- Row 1: Swatches Palette & Undo Button -->
+<div class="flex items-center justify-between gap-1 w-full">
+<div class="flex items-center gap-1 overflow-x-auto no-scrollbar py-1" id="swatch-container">
+<!-- 1. White (Selected default) -->
+<button aria-label="Branco" class="swatch-btn w-11 h-11 flex items-center justify-center rounded-full relative group" data-color="#FFFFFF" type="button">
+<span class="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-sm"></span>
+<span class="swatch-indicator absolute inset-1.5 rounded-full ring-2 ring-white ring-offset-2 ring-offset-surface"></span>
+</button>
+<!-- 2. Dark -->
+<button aria-label="Preto" class="swatch-btn w-11 h-11 flex items-center justify-center rounded-full relative group" data-color="#111111" type="button">
+<span class="w-7 h-7 rounded-full bg-[#111111] shadow-inner"></span>
+<span class="swatch-indicator hidden absolute inset-1.5 rounded-full ring-2 ring-[#111111] ring-offset-2 ring-offset-surface"></span>
+</button>
+<!-- 3. Coral -->
+<button aria-label="Coral" class="swatch-btn w-11 h-11 flex items-center justify-center rounded-full relative group" data-color="#FF5A5F" type="button">
+<span class="w-7 h-7 rounded-full bg-[#FF5A5F] shadow-sm"></span>
+<span class="swatch-indicator hidden absolute inset-1.5 rounded-full ring-2 ring-[#FF5A5F] ring-offset-2 ring-offset-surface"></span>
+</button>
+<!-- 4. Amber -->
+<button aria-label="Âmbar" class="swatch-btn w-11 h-11 flex items-center justify-center rounded-full relative group" data-color="#FFC145" type="button">
+<span class="w-7 h-7 rounded-full bg-[#FFC145] shadow-sm"></span>
+<span class="swatch-indicator hidden absolute inset-1.5 rounded-full ring-2 ring-[#FFC145] ring-offset-2 ring-offset-surface"></span>
+</button>
+<!-- 5. Primary Violet -->
+<button aria-label="Lavanda" class="swatch-btn w-11 h-11 flex items-center justify-center rounded-full relative group" data-color="#BFC2FF" type="button">
+<span class="w-7 h-7 rounded-full bg-primary-container shadow-sm"></span>
+<span class="swatch-indicator hidden absolute inset-1.5 rounded-full ring-2 ring-primary-container ring-offset-2 ring-offset-surface"></span>
+</button>
+<!-- 6. Azure -->
+<button aria-label="Azul Celeste" class="swatch-btn w-11 h-11 flex items-center justify-center rounded-full relative group" data-color="#4C8DFF" type="button">
+<span class="w-7 h-7 rounded-full bg-[#4C8DFF] shadow-sm"></span>
+<span class="swatch-indicator hidden absolute inset-1.5 rounded-full ring-2 ring-[#4C8DFF] ring-offset-2 ring-offset-surface"></span>
+</button>
+<!-- 7. Purple -->
+<button aria-label="Púrpura" class="swatch-btn w-11 h-11 flex items-center justify-center rounded-full relative group" data-color="#C86BFA" type="button">
+<span class="w-7 h-7 rounded-full bg-[#C86BFA] shadow-sm"></span>
+<span class="swatch-indicator hidden absolute inset-1.5 rounded-full ring-2 ring-[#C86BFA] ring-offset-2 ring-offset-surface"></span>
+</button>
+</div>
+<!-- Undo Action Button -->
+<button aria-label="Desfazer traço" class="w-11 h-11 shrink-0 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-body-lg">undo</span>
+</button>
+</div>
+<!-- Row 2: Stroke Thickness Slider -->
+<div class="flex items-center gap-3 w-full px-1 mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant shrink-0 w-20">Espessura</span>
+<div class="relative flex-1 flex items-center h-10 group">
+<!-- Interactive Range -->
+<input aria-label="Controle de espessura do pincel" class="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary-container focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-container" id="thickness-slider" max="28" min="2" type="range" value="8"/>
+</div>
+<!-- Current thickness preview indicator badge -->
+<div class="w-9 h-9 shrink-0 rounded-full bg-surface-container-low flex items-center justify-center">
+<div class="rounded-full bg-on-surface transition-all duration-100" id="thickness-indicator-pip" style="width: 8px; height: 8px;"></div>
+</div>
+</div>
+</section>
+<!-- Navigation Tab Bar (72px Height, 5 Tabs) -->
+<nav aria-label="Ferramentas de edição" class="h-[72px] grid grid-cols-5 shrink-0 bg-surface z-20">
+<!-- Tab 1: Cortar -->
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[22px]">crop</span>
+<span class="font-label-sm text-label-sm">Cortar</span>
+</button>
+<!-- Tab 2: Filtros -->
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[22px]">auto_fix_high</span>
+<span class="font-label-sm text-label-sm">Filtros</span>
+</button>
+<!-- Tab 3: Ajustes -->
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[22px]">tune</span>
+<span class="font-label-sm text-label-sm">Ajustes</span>
+</button>
+<!-- Tab 4: Desenhar (Active) -->
+<button aria-current="page" class="flex flex-col items-center justify-center gap-1 text-primary-container" type="button">
+<div class="relative flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">draw</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold tracking-tight text-primary-container">Desenhar</span>
+</button>
+<!-- Tab 5: Texto -->
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[22px]">title</span>
+<span class="font-label-sm text-label-sm">Texto</span>
+</button>
+</nav>
+</div>
+<script>
+  (() => {
+    const swatches = document.querySelectorAll('.swatch-btn');
+    const slider = document.getElementById('thickness-slider');
+    const thicknessPip = document.getElementById('thickness-indicator-pip');
+    const previewDot = document.getElementById('brush-preview-dot');
+
+    // Handle Swatch Selection
+    swatches.forEach(btn => {
+      btn.addEventListener('click', () => {
+        swatches.forEach(b => {
+          const ind = b.querySelector('.swatch-indicator');
+          if (ind) ind.classList.add('hidden');
+        });
+        const currentInd = btn.querySelector('.swatch-indicator');
+        if (currentInd) currentInd.classList.remove('hidden');
+
+        const activeColor = btn.getAttribute('data-color');
+        if (thicknessPip && activeColor) {
+          thicknessPip.style.backgroundColor = activeColor;
+        }
+        if (previewDot && activeColor) {
+          previewDot.style.backgroundColor = activeColor;
+        }
+      });
+    });
+
+    // Handle Thickness Slider Updates
+    if (slider && thicknessPip && previewDot) {
+      slider.addEventListener('input', (e) => {
+        const val = Number(e.target.value);
+        thicknessPip.style.width = `${val}px`;
+        thicknessPip.style.height = `${val}px`;
+        previewDot.style.width = `${Math.max(val, 6)}px`;
+        previewDot.style.height = `${Math.max(val, 6)}px`;
+      });
+    }
+  })();
+</script></main></body></html>

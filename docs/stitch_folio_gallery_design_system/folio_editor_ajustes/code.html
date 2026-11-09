@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#121318;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-primary-fixed-variant": "#3e4276", "surface-dim": "#121318", "tertiary": "#ffdad6", "on-tertiary": "#51221d", "tertiary-fixed": "#ffdad5", "on-secondary": "#2b2d50", "on-error": "#690005", "on-secondary-fixed-variant": "#424468", "on-secondary-fixed": "#16183a", "on-primary-container": "#4a4e83", "secondary-fixed": "#e0e0ff", "surface-bright": "#38393e", "primary-fixed": "#e0e0ff", "secondary": "#c2c3ee", "error-container": "#93000a", "primary": "#e1e0ff", "background": "#121318", "on-primary": "#282b5e", "surface": "#121318", "surface-tint": "#bfc2ff", "on-surface": "#e3e1e9", "inverse-surface": "#e3e1e9", "on-secondary-container": "#b4b5e0", "secondary-fixed-dim": "#c2c3ee", "surface-container-low": "#1a1b20", "surface-container-lowest": "#0d0e13", "tertiary-container": "#ffb4ab", "surface-container": "#1e1f25", "inverse-primary": "#565a8f", "on-primary-fixed": "#121548", "secondary-container": "#44466a", "primary-container": "#bfc2ff", "on-error-container": "#ffdad6", "surface-container-highest": "#34343a", "surface-container-high": "#292a2f", "tertiary-fixed-dim": "#ffb4ab", "outline": "#918f9a", "on-background": "#e3e1e9", "on-surface-variant": "#c7c5d0", "error": "#ffb4ab", "primary-fixed-dim": "#bfc2ff", "outline-variant": "#46464f", "on-tertiary-fixed": "#360e0a", "surface-variant": "#34343a", "on-tertiary-container": "#7a433d", "on-tertiary-fixed-variant": "#6c3832", "inverse-on-surface": "#2f3036" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "0.875rem", "gutter": "0.25rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "space-md": "0.875rem", "space-lg": "1rem", "space-xl": "1.5rem" }, fontFamily: { "headline-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "title-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-sm": ["20px", { lineHeight: "26px", letterSpacing: "0em", fontWeight: "700" }], "label-md": ["14px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "600" }], "label-sm": ["13px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500" }], "title-sm": ["16px", { lineHeight: "22px", letterSpacing: "0em", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "22px", letterSpacing: "0.01em", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", letterSpacing: "0.01em", fontWeight: "400" }], "display-lg": ["64px", { lineHeight: "72px", letterSpacing: "-0.02em", fontWeight: "800" }], "headline-md": ["22px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "800" }], "body-sm": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "400" }], "title-md": ["17px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "700" }], "headline-lg": ["34px", { lineHeight: "42px", letterSpacing: "-0.02em", fontWeight: "800" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen pt-safe pb-safe"><main class="flex flex-col relative w-full bg-surface min-h-screen"><div class="flex flex-col w-full select-none overflow-hidden pb-4">
+<!-- Top Bar -->
+<header class="h-16 px-4 flex items-center justify-between w-full bg-surface z-20">
+<div class="flex items-center gap-2">
+<button aria-label="Fechar editor" class="w-11 h-11 rounded-full flex items-center justify-center bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all text-on-surface" type="button">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-on-surface ml-1">Editar</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-11 px-3.5 rounded-full flex items-center justify-center bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95 transition-all font-label-md text-label-md" id="btn-reset" type="button">
+        Restaurar
+      </button>
+<button class="h-11 px-5 rounded-full flex items-center justify-center bg-primary-container text-on-primary-container hover:brightness-105 active:scale-95 transition-all font-title-sm text-title-sm shadow-md" id="btn-save" type="button">
+        Salvar
+      </button>
+</div>
+</header>
+<!-- Photo Stage (Immersive Canvas) -->
+<div class="relative w-full aspect-[4/5] max-h-[460px] flex items-center justify-center bg-[#0a0a0b] p-3 overflow-hidden">
+<div class="relative w-full h-full flex items-center justify-center">
+<img class="w-full h-full object-cover rounded-[6px] shadow-2xl transition-all duration-150 ease-out" data-alt="Cinematic dusk skyline of a sprawling metropolis featuring architectural high-rise buildings with radiant warm golden lights in windows, set against a deep twilight violet and indigo sky with a delicate pale crescent moon, captured in crisp fine-art photographics with pristine clarity and elevated dynamic brightness." id="stage-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3Nf43m8BCzo1DL5QMOQbEOjVeoSDKpC0VYQx7rcbXkk5Edf_rUL4LqVy6KlJV8f4Ai3vg1pcvuHaRhT-GVRZQ3wuS-Rb_w0HvM5xU1tSqe1hNNwjtar5EOeVThecj0j8vAOGYbxolCubOnf6VUUhah6S8OFacTt2WJIMGwgL23hpRS-MrVPg8zRsQeCmvK3do8ozvIiLMSzam-ffTaY9KeJ9dtiePOSk8ieUc7z4" style="filter: brightness(1.35) contrast(1.05);"/>
+<!-- Comparison Tag / Micro HUD -->
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface text-[11px] font-label-sm tracking-wide uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+<span>Ajustado</span>
+</div>
+<!-- Before / After Touch Hold Affordance -->
+<button class="absolute bottom-3 right-3 h-8 px-3 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface-variant text-[12px] font-label-sm flex items-center gap-1.5 active:bg-surface-container-highest transition-all" id="btn-compare" type="button">
+<span class="material-symbols-outlined text-[16px]">compare</span>
+<span>Original</span>
+</button>
+</div>
+</div>
+<!-- Tool Panel -->
+<div class="h-44 px-4 pt-3 pb-2 flex flex-col justify-around bg-surface">
+<!-- Row 1: Adjustment Categories Scroll -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 scroll-smooth" id="chips-container">
+<!-- Brilho (Selected) -->
+<button class="tool-chip flex-shrink-0 h-10 px-4 rounded-xl flex items-center gap-2 bg-[#3f4165] text-[#dfe0ff] transition-transform active:scale-95 font-label-md text-label-md" data-tool="brightness" type="button">
+<span class="material-symbols-outlined text-[18px]">light_mode</span>
+<span>Brilho</span>
+</button>
+<!-- Contraste -->
+<button class="tool-chip flex-shrink-0 h-10 px-4 rounded-xl flex items-center gap-2 bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform font-label-md text-label-md" data-tool="contrast" type="button">
+<span class="material-symbols-outlined text-[18px]">contrast</span>
+<span>Contraste</span>
+</button>
+<!-- Saturação -->
+<button class="tool-chip flex-shrink-0 h-10 px-4 rounded-xl flex items-center gap-2 bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform font-label-md text-label-md" data-tool="saturation" type="button">
+<span class="material-symbols-outlined text-[18px]">palette</span>
+<span>Saturação</span>
+</button>
+<!-- Calor -->
+<button class="tool-chip flex-shrink-0 h-10 px-4 rounded-xl flex items-center gap-2 bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform font-label-md text-label-md" data-tool="warmth" type="button">
+<span class="material-symbols-outlined text-[18px]">thermostat</span>
+<span>Calor</span>
+</button>
+<!-- Desfoque -->
+<button class="tool-chip flex-shrink-0 h-10 px-4 rounded-xl flex items-center gap-2 bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform font-label-md text-label-md" data-tool="blur" type="button">
+<span class="material-symbols-outlined text-[18px]">blur_on</span>
+<span>Desfoque</span>
+</button>
+</div>
+<!-- Row 2: Tactile Precision Slider -->
+<div class="h-11 flex items-center gap-3 w-full">
+<button aria-label="Diminuir valor" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-90 transition-transform" id="slider-dec" type="button">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<!-- Interactive Slider Track -->
+<div class="h-2 flex-1 rounded-full bg-[#27272d] relative cursor-pointer touch-none" id="slider-track">
+<div class="h-full rounded-full bg-primary-container relative" id="slider-fill" style="width: 67.5%;">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-5 h-5 rounded-full bg-primary-container shadow-[0_0_12px_rgba(191,194,255,0.6)] flex items-center justify-center transition-transform active:scale-125" id="slider-thumb">
+<span class="w-1.5 h-1.5 rounded-full bg-on-primary-container"></span>
+</div>
+</div>
+</div>
+<button aria-label="Aumentar valor" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-90 transition-transform" id="slider-inc" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+<!-- Readout Value -->
+<div class="w-10 text-right font-headline-sm text-headline-sm text-on-surface tabular-nums" id="slider-value">
+        +35
+      </div>
+</div>
+</div>
+<!-- Tab Bar -->
+<nav class="h-[72px] grid grid-cols-5 w-full bg-surface shadow-inner z-20">
+<!-- Tab 1: Cortar -->
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors py-1 group" type="button">
+<span class="material-symbols-outlined text-[22px] group-hover:-translate-y-0.5 transition-transform">crop</span>
+<span class="text-[12px] font-label-sm leading-none">Cortar</span>
+</button>
+<!-- Tab 2: Filtros -->
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors py-1 group" type="button">
+<span class="material-symbols-outlined text-[22px] group-hover:-translate-y-0.5 transition-transform">auto_awesome</span>
+<span class="text-[12px] font-label-sm leading-none">Filtros</span>
+</button>
+<!-- Tab 3: Ajustes (Selected) -->
+<button class="flex flex-col items-center justify-center gap-1 text-primary-container py-1 relative" type="button">
+<div class="w-10 h-7 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">tune</span>
+</div>
+<span class="text-[12px] font-title-sm leading-none font-semibold">Ajustes</span>
+</button>
+<!-- Tab 4: Desenhar -->
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors py-1 group" type="button">
+<span class="material-symbols-outlined text-[22px] group-hover:-translate-y-0.5 transition-transform">draw</span>
+<span class="text-[12px] font-label-sm leading-none">Desenhar</span>
+</button>
+<!-- Tab 5: Texto -->
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors py-1 group" type="button">
+<span class="material-symbols-outlined text-[22px] group-hover:-translate-y-0.5 transition-transform">title</span>
+<span class="text-[12px] font-label-sm leading-none">Texto</span>
+</button>
+</nav>
+<!-- Interactive Logic Hook -->
+<script>
+    (function() {
+      const track = document.getElementById('slider-track');
+      const fill = document.getElementById('slider-fill');
+      const readout = document.getElementById('slider-value');
+      const img = document.getElementById('stage-image');
+      const compareBtn = document.getElementById('btn-compare');
+      const resetBtn = document.getElementById('btn-reset');
+      const chips = document.querySelectorAll('.tool-chip');
+      const decBtn = document.getElementById('slider-dec');
+      const incBtn = document.getElementById('slider-inc');
+
+      let currentValue = 35; // Range -100 to +100
+      let activeFilter = 'brightness';
+
+      function updateUI(val) {
+        currentValue = Math.max(-100, Math.min(100, val));
+        const percentage = ((currentValue + 100) / 200) * 100;
+        fill.style.width = percentage + '%';
+        readout.textContent = (currentValue > 0 ? '+' : '') + currentValue;
+
+        // Visual feedback on stage image
+        const brightNorm = 1 + (currentValue / 100);
+        img.style.filter = `brightness(${brightNorm}) contrast(1.05)`;
+      }
+
+      function handleDrag(e) {
+        const rect = track.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const offsetX = Math.max(0, Math.min(rect.width, clientX - rect.left));
+        const pct = offsetX / rect.width;
+        const calculatedVal = Math.round((pct * 200) - 100);
+        updateUI(calculatedVal);
+      }
+
+      let isDragging = false;
+      track.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        track.setPointerCapture(e.pointerId);
+        handleDrag(e);
+      });
+      track.addEventListener('pointermove', (e) => {
+        if (isDragging) handleDrag(e);
+      });
+      track.addEventListener('pointerup', () => { isDragging = false; });
+      track.addEventListener('pointercancel', () => { isDragging = false; });
+
+      decBtn.addEventListener('click', () => updateUI(currentValue - 5));
+      incBtn.addEventListener('click', () => updateUI(currentValue + 5));
+
+      // Reset
+      resetBtn.addEventListener('click', () => {
+        updateUI(0);
+      });
+
+      // Quick Hold Compare
+      let prevFilter = '';
+      compareBtn.addEventListener('pointerdown', () => {
+        prevFilter = img.style.filter;
+        img.style.filter = 'brightness(1) contrast(1)';
+        compareBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+      });
+      const endCompare = () => {
+        if (prevFilter) img.style.filter = prevFilter;
+        compareBtn.classList.remove('bg-primary-container', 'text-on-primary-container');
+      };
+      compareBtn.addEventListener('pointerup', endCompare);
+      compareBtn.addEventListener('pointerleave', endCompare);
+
+      // Tool Switching
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => {
+            c.className = 'tool-chip flex-shrink-0 h-10 px-4 rounded-xl flex items-center gap-2 bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform font-label-md text-label-md';
+          });
+          chip.className = 'tool-chip flex-shrink-0 h-10 px-4 rounded-xl flex items-center gap-2 bg-[#3f4165] text-[#dfe0ff] transition-transform active:scale-95 font-label-md text-label-md';
+          activeFilter = chip.dataset.tool;
+        });
+      });
+    })();
+  </script>
+</div></main></body></html>
