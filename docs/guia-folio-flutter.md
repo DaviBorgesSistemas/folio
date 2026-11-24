@@ -11,7 +11,7 @@ App de galeria que lê as imagens reais do celular, separa por pasta, abre cada 
 4. Estrutura de pastas
 5. Tema e utilitários
 6. Camada de dados: serviço da galeria
-7. Estado: controller
+7. Estado: ValueNotifier
 8. Telas 0 e 1: splash, boas-vindas e permissão
 9. Tela 2: leitura das imagens
 10. Tela 3: lista de pastas
@@ -61,7 +61,7 @@ Sistema (MediaStore / Fotos)
         ▼
 GalleryService     fala com o sistema: permissão, álbuns, copiar, mover, excluir
         ▼
-GalleryController  guarda a lista de pastas, ordenação, busca e favoritos
+GalleryController    guarda a lista de pastas, ordenação, busca e favoritos
         ▼
 Telas              só desenham o que o controller entrega
 ```
@@ -90,7 +90,7 @@ Siga a ordem abaixo. Em cada etapa há um ponto de conferência: só avance quan
 | 1 | 1 | Criar o projeto | O app padrão abre no celular |
 | 2 | 2 e 3 | Dependências e permissões | `flutter pub get` sem erro e o app ainda abre |
 | 3 | 4 e 5 | Pastas, tema e utilitários | Compila, sem erros no analisador |
-| 4 | 6 e 7 | Serviço, controller, `main.dart` e `app.dart` | Compila e abre uma tela vazia |
+| 4 | 6 e 7 | Serviço, estado (`ValueNotifier`), `main.dart` e `app.dart` | Compila e abre uma tela vazia |
 | 5 | 8 | Splash e boas-vindas | "Permitir" mostra o diálogo do Android |
 | 6 | 9 | Tela de leitura | A contagem sobe e o botão libera no fim |
 | 7 | 10 | Lista de pastas | Mesmos nomes e contagens do app de galeria do celular |
@@ -123,14 +123,13 @@ O nome do pacote é `folio`, então os imports abaixo usam `package:folio/...`.
 Use o comando abaixo para pegar sempre as versões mais recentes compatíveis com o seu Flutter:
 
 ```bash
-flutter pub add photo_manager photo_manager_image_provider provider shared_preferences pro_image_editor share_plus flutter_svg
+flutter pub add photo_manager photo_manager_image_provider shared_preferences pro_image_editor share_plus flutter_svg
 ```
 
 | Pacote | Para quê |
 |---|---|
 | `photo_manager` | Ler álbuns e imagens, excluir, copiar, salvar |
 | `photo_manager_image_provider` | Widget `AssetEntityImage` (miniaturas com cache) |
-| `provider` | Estado simples com `ChangeNotifier` |
 | `shared_preferences` | Guardar favoritos |
 | `pro_image_editor` | Editor pronto: cortar, girar, filtros, ajustes, desenho, texto |
 | `share_plus` | Compartilhar a imagem |
@@ -653,7 +652,25 @@ class GalleryService {
 
 ---
 
-## 7. Estado: controller
+## 7. Estado: ValueNotifier
+
+### Como o estado funciona
+
+O estado do app (pastas, ordem, busca, favoritos, exclusões pendentes) fica em **um único controller**, que é um `ValueNotifier<GalleryState>`. Não há pacote de estado: tudo vem do próprio Flutter.
+
+- `GalleryState` é uma classe **imutável** com tudo o que as telas precisam.
+- `GalleryController` guarda um `GalleryState` em `value`. Para mudar algo, ele cria um estado novo: `value = value.copyWith(...)`. Atribuir um objeto novo avisa quem está ouvindo.
+- As telas ouvem com `ValueListenableBuilder` e se reconstroem sozinhas.
+- Existe **uma instância global**, `gallery`, que qualquer tela importa. É a forma mais simples de dar acesso ao controller sem pacote. Para testar, troque por uma instância sua ou passe o controller pelo construtor.
+
+Conceitos usados no guia:
+
+| Conceito | Para quê |
+|---|---|
+| `ValueNotifier<T>` | Guarda um valor e avisa os ouvintes quando ele é trocado |
+| `ValueListenableBuilder` | Widget que se reconstrói quando o valor muda |
+| `gallery.value` | Lê o estado atual sem ouvir (use em eventos, como `onPressed`) |
+| `gallery.método()` | Muda o estado (`setSort`, `toggleFavorite`, `refresh`...) |
 
 ### `lib/state/gallery_controller.dart`
 
@@ -680,27 +697,59 @@ class ScanProgress {
   final String current;
 }
 
-class GalleryController extends ChangeNotifier with WidgetsBindingObserver {
-  final service = GalleryService();
+/// Tudo o que as telas precisam saber. Imutável: para mudar, use copyWith.
+@immutable
+class GalleryState {
+  const GalleryState({
+    this.folders = const [],
+    this.sort = FolderSort.count,
+    this.query = '',
+    this.favorites = const {},
+    this.favCovers = const [],
+    this.pending = const {},
+    this.revision = 0,
+    this.favRevision = 0,
+  });
 
-  List<FolderInfo> _folders = [];
-  FolderSort sort = FolderSort.count;
-  String query = '';
-  Set<String> _favorites = {};
-  static const _favKey = 'favorites';
+  final List<FolderInfo> folders;
+  final FolderSort sort;
+  final String query;
+  final Set<String> favorites;       // ids favoritos (guardados no app)
+  final List<AssetEntity> favCovers; // até 4 capas da pasta "Favoritas"
+  final Set<String> pending;         // excluídas, mas ainda dá para desfazer
+  final int revision;                // sobe a cada atualização da galeria
+  final int favRevision;             // sobe quando as favoritas mudam
 
-  // ---------- pastas ----------
-  List<FolderInfo> get folders => _folders;
+  GalleryState copyWith({
+    List<FolderInfo>? folders,
+    FolderSort? sort,
+    String? query,
+    Set<String>? favorites,
+    List<AssetEntity>? favCovers,
+    Set<String>? pending,
+    int? revision,
+    int? favRevision,
+  }) =>
+      GalleryState(
+        folders: folders ?? this.folders,
+        sort: sort ?? this.sort,
+        query: query ?? this.query,
+        favorites: favorites ?? this.favorites,
+        favCovers: favCovers ?? this.favCovers,
+        pending: pending ?? this.pending,
+        revision: revision ?? this.revision,
+        favRevision: favRevision ?? this.favRevision,
+      );
 
   int get totalImages {
-    final all = _folders.where((f) => f.path.isAll);
+    final all = folders.where((f) => f.path.isAll);
     if (all.isNotEmpty) return all.first.count;
-    return _folders.fold(0, (s, f) => s + f.count);
+    return folders.fold(0, (s, f) => s + f.count);
   }
 
   List<FolderInfo> get visibleFolders {
     final q = query.trim().toLowerCase();
-    final list = _folders
+    final list = folders
         .where((f) => q.isEmpty || f.name.toLowerCase().contains(q))
         .toList();
     switch (sort) {
@@ -714,15 +763,30 @@ class GalleryController extends ChangeNotifier with WidgetsBindingObserver {
     return list;
   }
 
-  void setSort(FolderSort s) {
-    sort = s;
-    notifyListeners();
-  }
+  int get favoritesCount => favorites.length;
+  bool isFavorite(String assetId) => favorites.contains(assetId);
 
-  void setQuery(String q) {
-    query = q;
-    notifyListeners();
-  }
+  /// Imagens que o usuário excluiu mas ainda podem voltar (aviso na tela).
+  /// As telas devem esconder estes ids.
+  bool isPending(String id) => pending.contains(id);
+}
+
+/// Instância única, usada por todas as telas.
+final gallery = GalleryController();
+
+class GalleryController extends ValueNotifier<GalleryState> {
+  GalleryController() : super(const GalleryState());
+
+  final service = GalleryService();
+  static const _favKey = 'favorites';
+
+  Timer? _debounce;
+  bool _refreshing = false, _again = false, _watching = false;
+  late final _lifecycle = _LifecycleWatcher(refresh);
+
+  // ---------- pastas ----------
+  void setSort(FolderSort s) => value = value.copyWith(sort: s);
+  void setQuery(String q) => value = value.copyWith(query: q);
 
   // ---------- leitura ----------
   Future<bool> requestPermission() => service.requestPermission();
@@ -742,8 +806,7 @@ class GalleryController extends ChangeNotifier with WidgetsBindingObserver {
         current: info.name,
       ));
     }
-    _folders = result;
-    notifyListeners();
+    value = value.copyWith(folders: result);
     _updateFavorites(); // capas e contagem de Favoritas
   }
 
@@ -760,8 +823,8 @@ class GalleryController extends ChangeNotifier with WidgetsBindingObserver {
       _refreshing = true;
       try {
         await scan();
-        revision++; // avisa as telas abertas para recarregarem
-        notifyListeners();
+        // Avisa as telas abertas para recarregarem.
+        value = value.copyWith(revision: value.revision + 1);
       } finally {
         _refreshing = false;
         if (_again) {
@@ -773,51 +836,35 @@ class GalleryController extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   // ---------- mudanças feitas fora do app ----------
-  Timer? _debounce;
-  bool _refreshing = false, _again = false, _watching = false;
-  int revision = 0; // sobe a cada atualização da galeria
-
   /// Chame uma vez, depois que a permissão foi concedida.
   void watchGallery() {
     if (_watching) return;
     _watching = true;
     PhotoManager.addChangeCallback(_onSystemChange);
     PhotoManager.startChangeNotify();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addObserver(_lifecycle);
   }
 
   void _onSystemChange(MethodCall _) => refresh();
 
-  /// Ao voltar para o app, confere de novo: o aviso do sistema nem sempre
-  /// chega com o app em segundo plano.
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) refresh();
-  }
-
   @override
   void dispose() {
-    PhotoManager.removeChangeCallback(_onSystemChange);
-    PhotoManager.stopChangeNotify();
-    WidgetsBinding.instance.removeObserver(this);
     _debounce?.cancel();
+    if (_watching) {
+      PhotoManager.removeChangeCallback(_onSystemChange);
+      PhotoManager.stopChangeNotify();
+      WidgetsBinding.instance.removeObserver(_lifecycle);
+    }
     super.dispose();
   }
 
   // ---------- favoritos (guardados no app) ----------
-  int favRevision = 0;                 // sobe quando as favoritas mudam
-  List<AssetEntity> favCovers = [];    // até 4 capas da pasta "Favoritas"
-  int get favoritesCount => _favorites.length;
-
   Future<void> loadFavorites() async {
     final p = await SharedPreferences.getInstance();
-    _favorites = (p.getStringList(_favKey) ?? []).toSet();
-    notifyListeners();
+    value = value.copyWith(favorites: (p.getStringList(_favKey) ?? []).toSet());
     // As capas de Favoritas são calculadas depois da leitura (fim do scan),
     // quando já existe permissão para consultar as imagens.
   }
-
-  bool isFavorite(String assetId) => _favorites.contains(assetId);
 
   /// Busca as imagens favoritas, da mais nova para a mais antiga.
   /// Favoritas que não existem mais no aparelho (apagadas por outro app)
@@ -826,13 +873,13 @@ class GalleryController extends ChangeNotifier with WidgetsBindingObserver {
   Future<List<AssetEntity>> favoriteAssets() async {
     final found = <AssetEntity>[];
     final gone = <String>[];
-    for (final id in _favorites) {
+    for (final id in value.favorites) {
       final a = await AssetEntity.fromId(id);
       a == null ? gone.add(id) : found.add(a);
     }
     final full = await PhotoManager.requestPermissionExtend() == PermissionState.authorized;
     if (gone.isNotEmpty && full) {
-      _favorites.removeAll(gone);
+      value = value.copyWith(favorites: {...value.favorites}..removeAll(gone));
       await _saveFavorites();
     }
     found.sort((a, b) => b.createDateTime.compareTo(a.createDateTime));
@@ -840,50 +887,50 @@ class GalleryController extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   Future<void> _updateFavorites() async {
-    favCovers = (await favoriteAssets()).take(4).toList();
-    favRevision++;
-    notifyListeners();
+    final covers = (await favoriteAssets()).take(4).toList();
+    value = value.copyWith(favCovers: covers, favRevision: value.favRevision + 1);
   }
 
   Future<void> _saveFavorites() async {
     final p = await SharedPreferences.getInstance();
-    await p.setStringList(_favKey, _favorites.toList());
+    await p.setStringList(_favKey, value.favorites.toList());
   }
 
   /// Favorita vários de uma vez (barra de seleção). Se todos já são
   /// favoritos, remove; senão, adiciona todos. Devolve true se adicionou.
   Future<bool> toggleFavorites(Iterable<String> ids) async {
-    final add = !ids.every(_favorites.contains);
-    add ? _favorites.addAll(ids) : _favorites.removeAll(ids);
-    notifyListeners();
+    final add = !ids.every(value.favorites.contains);
+    final next = {...value.favorites};
+    add ? next.addAll(ids) : next.removeAll(ids);
+    value = value.copyWith(favorites: next);
     await _saveFavorites();
     _updateFavorites();
     return add;
   }
 
   Future<void> toggleFavorite(String assetId) async {
-    _favorites.contains(assetId)
-        ? _favorites.remove(assetId)
-        : _favorites.add(assetId);
-    notifyListeners();
+    final next = {...value.favorites};
+    next.contains(assetId) ? next.remove(assetId) : next.add(assetId);
+    value = value.copyWith(favorites: next);
     await _saveFavorites();
     _updateFavorites();
   }
 
   // ---------- excluir com "Desfazer" ----------
-  final _pending = <String>{};
-
-  /// Imagens que o usuário excluiu mas ainda podem voltar (aviso na tela).
-  /// As telas devem esconder estes ids.
-  bool isPending(String id) => _pending.contains(id);
+  void _setPending(Iterable<String> ids, {required bool add, bool bump = false}) {
+    final next = {...value.pending};
+    add ? next.addAll(ids) : next.removeAll(ids);
+    value = value.copyWith(
+      pending: next,
+      revision: bump ? value.revision + 1 : value.revision,
+    );
+  }
 
   /// Esconde as imagens e mostra "Desfazer" por 5 s. Só quando o aviso fecha
   /// sem o usuário desfazer é que a exclusão acontece de verdade.
   /// No Android 11+ o diálogo de confirmação do sistema aparece nesse momento.
   void deleteWithUndo(BuildContext context, List<String> ids) {
-    _pending.addAll(ids);
-    revision++;
-    notifyListeners();
+    _setPending(ids, add: true, bump: true);
 
     final messenger = ScaffoldMessenger.of(context);
     messenger.hideCurrentSnackBar(); // se havia outro aviso, ele confirma agora
@@ -893,23 +940,51 @@ class GalleryController extends ChangeNotifier with WidgetsBindingObserver {
           duration: const Duration(seconds: 5),
           action: SnackBarAction(
             label: 'Desfazer',
-            onPressed: () {
-              _pending.removeAll(ids);
-              revision++;
-              notifyListeners();
-            },
+            onPressed: () => _setPending(ids, add: false, bump: true),
           ),
         ))
         .closed
         .then((reason) async {
       if (reason == SnackBarClosedReason.action) return;
       await service.delete(ids); // vazio = o usuário negou no diálogo do sistema
-      _pending.removeAll(ids);
+      _setPending(ids, add: false);
       refresh(); // se negou, as imagens voltam; se excluiu, somem de vez
     });
   }
 }
+
+/// Ao voltar para o app, confere de novo: o aviso do sistema nem sempre
+/// chega com o app em segundo plano.
+class _LifecycleWatcher with WidgetsBindingObserver {
+  _LifecycleWatcher(this.onResumed);
+  final VoidCallback onResumed;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) onResumed();
+  }
+}
 ```
+
+> O estado é **imutável**: nunca faça `value.favorites.add(...)`. O `ValueNotifier` só avisa quando você **troca** o objeto (`value = ...`); mexer dentro do objeto antigo não notifica ninguém. Crie sempre um conjunto novo (`{...value.favorites}`) e atribua com `value = value.copyWith(...)`.
+
+### Como uma tela ouve o estado
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return ValueListenableBuilder<GalleryState>(
+    valueListenable: gallery,
+    builder: (context, state, _) => Text('${state.totalImages} imagens'),
+  );
+}
+```
+
+### Migrar para Riverpod depois
+
+O controller já foi escrito para facilitar essa troca: o estado é **imutável** (`GalleryState` com `copyWith`) e fica em **um só lugar**. Na migração, `GalleryController` vira um `Notifier<GalleryState>` (`value` passa a ser `state`), `gallery` vira um `NotifierProvider`, e cada tela troca `ValueListenableBuilder` por `ref.watch`. A classe `GalleryState`, o `GalleryService` e a lógica dos métodos não mudam.
+
+Nas telas grandes (pastas, pasta e visualizador), o guia mantém o `build` curto e move o corpo para um método `_content(context, state)`, para não aninhar tudo dentro do builder.
 
 ### Mudanças feitas fora do app
 
@@ -918,7 +993,7 @@ Depois da primeira leitura, a galeria continua mudando: o usuário tira uma foto
 | Situação | Como o app descobre |
 |---|---|
 | Mudança com o app aberto | `PhotoManager.addChangeCallback` + `startChangeNotify` (o sistema avisa) |
-| Mudança com o app em segundo plano | `didChangeAppLifecycleState(resumed)`: ao voltar, lê de novo |
+| Mudança com o app em segundo plano | `_LifecycleWatcher` (`didChangeAppLifecycleState(resumed)`): ao voltar, lê de novo |
 | Mudança feita pelo próprio app (excluir, copiar, mover, editar) | Quem fez a ação chama `refresh()` |
 
 Detalhes que evitam problemas:
@@ -929,25 +1004,20 @@ Detalhes que evitam problemas:
 - **Atualização silenciosa.** Aqui `refresh()` não passa pela `ScanScreen`: a lista só troca quando a nova leitura termina, sem tela de carregamento.
 - **Favoritos órfãos.** Se uma imagem favorita é apagada fora do app, o id dela fica no `shared_preferences`. O `favoriteAssets()` limpa esses ids sozinho, mas só com acesso total às fotos. Com acesso parcial, ele não apaga nada, porque a imagem pode estar fora do que o usuário liberou.
 
-Ative a observação uma vez, logo depois de a permissão ser concedida. Na `ScanScreen`, depois do `scan()`, chame `context.read<GalleryController>().watchGallery();` (a chamada é segura se repetida).
+Ative a observação uma vez, logo depois de a permissão ser concedida. Na `ScanScreen`, depois do `scan()`, chame `gallery.watchGallery();` (a chamada é segura se repetida).
 
 ### `lib/main.dart` e `lib/app.dart`
 
 ```dart
 // main.dart
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:folio/app.dart';
 import 'package:folio/state/gallery_controller.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => GalleryController()..loadFavorites(),
-      child: const FolioApp(),
-    ),
-  );
+  gallery.loadFavorites(); // favoritos guardados no aparelho (seção 7)
+  runApp(const FolioApp());
 }
 ```
 
@@ -1053,7 +1123,6 @@ class _SplashScreenState extends State<SplashScreen> {
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:provider/provider.dart';
 import 'package:folio/core/theme.dart';
 import 'package:folio/state/gallery_controller.dart';
 import 'package:folio/widgets/glass.dart';
@@ -1064,7 +1133,7 @@ class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   Future<void> _allow(BuildContext context) async {
-    final ok = await context.read<GalleryController>().requestPermission();
+    final ok = await gallery.requestPermission();
     if (!context.mounted) return;
     if (ok) {
       Navigator.of(context).pushReplacement(
@@ -1162,7 +1231,6 @@ No app real, a "leitura" é o `scan()` do controller. O progresso vem do callbac
 ```dart
 import 'dart:ui' show FontFeature;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:folio/core/format.dart';
 import 'package:folio/core/theme.dart';
 import 'package:folio/state/gallery_controller.dart';
@@ -1187,7 +1255,7 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Future<void> _run() async {
-    await context.read<GalleryController>().scan(onProgress: (p) {
+    await gallery.scan(onProgress: (p) {
       if (!mounted) return;
       setState(() {
         _p = p;
@@ -1195,7 +1263,7 @@ class _ScanScreenState extends State<ScanScreen> {
       });
     });
     if (!mounted) return;
-    context.read<GalleryController>().watchGallery(); // passa a observar mudanças
+    gallery.watchGallery(); // passa a observar mudanças
     setState(() => _done = true);
   }
 
@@ -1385,7 +1453,6 @@ Aqui aparece o lado Material 3: um `SegmentedButton` (botão segmentado, com che
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:folio/core/format.dart';
 import 'package:folio/core/theme.dart';
 import 'package:folio/state/gallery_controller.dart';
@@ -1402,8 +1469,12 @@ class _FoldersScreenState extends State<FoldersScreen> {
   bool _searching = false;
 
   @override
-  Widget build(BuildContext context) {
-    final c = context.watch<GalleryController>();
+  Widget build(BuildContext context) => ValueListenableBuilder<GalleryState>(
+        valueListenable: gallery,
+        builder: (context, c, _) => _content(context, c),
+      );
+
+  Widget _content(BuildContext context, GalleryState c) {
     final folders = c.visibleFolders;
     final q = c.query.trim().toLowerCase();
     final showFav = q.isEmpty || 'favoritas'.contains(q); // Favoritas sempre em primeiro
@@ -1425,7 +1496,7 @@ class _FoldersScreenState extends State<FoldersScreen> {
                   icon: const Icon(Icons.search),
                   onPressed: () {
                     setState(() => _searching = !_searching);
-                    if (!_searching) c.setQuery('');
+                    if (!_searching) gallery.setQuery('');
                   },
                 ),
               ]),
@@ -1440,7 +1511,7 @@ class _FoldersScreenState extends State<FoldersScreen> {
                 padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
                 child: TextField(
                   autofocus: true,
-                  onChanged: c.setQuery,
+                  onChanged: gallery.setQuery,
                   decoration: InputDecoration(
                     hintText: 'Buscar pasta',
                     filled: true,
@@ -1462,7 +1533,7 @@ class _FoldersScreenState extends State<FoldersScreen> {
                   ButtonSegment(value: FolderSort.recent, label: Text('Recentes')),
                 ],
                 selected: {c.sort},
-                onSelectionChanged: (s) => c.setSort(s.first),
+                onSelectionChanged: (s) => gallery.setSort(s.first),
                 style: SegmentedButton.styleFrom(
                   backgroundColor: const Color(0x12FFFFFF), // vidro
                   foregroundColor: AppColors.muted,
@@ -1557,7 +1628,6 @@ Se o compilador reclamar dos nomes (`addOrderOption`, `fetchPathProperties`), co
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:folio/core/format.dart';
 import 'package:folio/core/theme.dart';
 import 'package:folio/data/folder_info.dart';
@@ -1593,14 +1663,14 @@ class _FolderScreenState extends State<FolderScreen> {
   FolderInfo? get _folder {
     final f = widget.folder;
     if (f == null) return null;
-    final all = context.read<GalleryController>().folders;
+    final all = gallery.value.folders;
     return all.firstWhere((x) => x.id == f.id, orElse: () => f);
   }
 
   @override
   void initState() {
     super.initState();
-    final c = context.read<GalleryController>();
+    final c = gallery.value;
     _seenRevision = c.revision;
     _seenFavRevision = c.favRevision;
     _scroll.addListener(() {
@@ -1617,17 +1687,17 @@ class _FolderScreenState extends State<FolderScreen> {
 
   /// Busca uma página. Devolve as imagens e se é a última.
   Future<(List<AssetEntity>, bool)> _fetch(int page) async {
-    final c = context.read<GalleryController>();
     if (_isFavorites) {
       // Favoritas não têm paginação: vêm todas de uma vez.
-      var all = await c.favoriteAssets();
+      var all = await gallery.favoriteAssets();
       if (!_newestFirst) all = all.reversed.toList();
       return (all, true);
     }
     final path = _orderedPath ?? _folder!.path;
     final batch = await path.getAssetListPaged(page: page, size: _pageSize);
     // Esconde as que o usuário acabou de excluir (ainda dá para desfazer).
-    return (batch.where((a) => !c.isPending(a.id)).toList(), batch.length < _pageSize);
+    final s = gallery.value; // lido agora: pode ter mudado durante o await
+    return (batch.where((a) => !s.isPending(a.id)).toList(), batch.length < _pageSize);
   }
 
   Future<void> _loadMore() async {
@@ -1647,9 +1717,7 @@ class _FolderScreenState extends State<FolderScreen> {
   /// para a grade não piscar vazia.
   Future<void> _reload() async {
     if (!_isFavorites) {
-      _orderedPath = await context
-          .read<GalleryController>()
-          .service
+      _orderedPath = await gallery.service
           .withOrder(_folder!.path, newestFirst: _newestFirst);
     }
     final (batch, last) = await _fetch(0);
@@ -1681,7 +1749,7 @@ class _FolderScreenState extends State<FolderScreen> {
   }
 
   Future<void> _favoriteSelected() async {
-    final added = await context.read<GalleryController>().toggleFavorites(_selected.toList());
+    final added = await gallery.toggleFavorites(_selected.toList());
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(added ? 'Adicionadas às favoritas' : 'Removidas das favoritas'),
@@ -1696,12 +1764,16 @@ class _FolderScreenState extends State<FolderScreen> {
       _selected.clear();
       _selectMode = false;
     });
-    context.read<GalleryController>().deleteWithUndo(context, ids);
+    gallery.deleteWithUndo(context, ids);
   }
 
   @override
-  Widget build(BuildContext context) {
-    final c = context.watch<GalleryController>();
+  Widget build(BuildContext context) => ValueListenableBuilder<GalleryState>(
+        valueListenable: gallery,
+        builder: (context, c, _) => _content(context, c),
+      );
+
+  Widget _content(BuildContext context, GalleryState c) {
 
     // A galeria mudou (dentro ou fora do app), ou uma exclusão foi desfeita.
     if (c.revision != _seenRevision || (_isFavorites && c.favRevision != _seenFavRevision)) {
@@ -1872,7 +1944,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:folio/core/format.dart';
 import 'package:folio/core/theme.dart';
@@ -1934,12 +2005,11 @@ class _ViewerScreenState extends State<ViewerScreen> {
   /// Sem diálogo: a imagem some e o aviso mostra "Desfazer" (veja o controller).
   void _delete() {
     final id = _cur.id;
-    final c = context.read<GalleryController>();
     setState(() {
       _assets.removeAt(_index);
       if (_index >= _assets.length) _index = _assets.length - 1;
     });
-    c.deleteWithUndo(context, [id]);
+    gallery.deleteWithUndo(context, [id]);
     if (_assets.isEmpty) Navigator.pop(context);
   }
 
@@ -1950,7 +2020,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
     if (!mounted) return;
     if (saved == true) {
       _toast('Cópia salva na galeria');
-      context.read<GalleryController>().refresh();
+      gallery.refresh();
     }
   }
 
@@ -2024,8 +2094,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
   }
 
   Future<void> _pickFolder({required bool move}) async {
-    final c = context.read<GalleryController>();
-    final targets = c.folders.where((f) => !f.path.isAll).toList();
+    final targets = gallery.value.folders.where((f) => !f.path.isAll).toList();
     final FolderInfo? chosen = await showModalBottomSheet<FolderInfo>(
       context: context,
       backgroundColor: AppColors.surface2,
@@ -2049,7 +2118,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
     if (chosen == null || !mounted) return;
 
     if (move) {
-      final ok = await c.service.moveTo(_cur, chosen.path);
+      final ok = await gallery.service.moveTo(_cur, chosen.path);
       if (!ok || !mounted) return _toast('Não foi possível mover');
       setState(() {
         _assets.removeAt(_index);
@@ -2058,16 +2127,20 @@ class _ViewerScreenState extends State<ViewerScreen> {
       if (_assets.isEmpty) return Navigator.pop(context);
       _toast('Movida para ${chosen.name}');
     } else {
-      final copy = await c.service.copyTo(_cur, chosen.path);
+      final copy = await gallery.service.copyTo(_cur, chosen.path);
       _toast(copy == null ? 'Não foi possível copiar' : 'Copiada para ${chosen.name}');
     }
-    c.refresh();
+    gallery.refresh();
   }
 
   // ---------- tela ----------
   @override
-  Widget build(BuildContext context) {
-    final fav = context.watch<GalleryController>();
+  Widget build(BuildContext context) => ValueListenableBuilder<GalleryState>(
+        valueListenable: gallery,
+        builder: (context, fav, _) => _content(context, fav),
+      );
+
+  Widget _content(BuildContext context, GalleryState fav) {
     final isFav = fav.isFavorite(_cur.id);
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0B),
@@ -2094,7 +2167,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
             tooltip: 'Favoritar',
             icon: Icon(isFav ? Icons.favorite : Icons.favorite_border,
                 color: isFav ? AppColors.accent : null),
-            onPressed: () => fav.toggleFavorite(_cur.id),
+            onPressed: () => gallery.toggleFavorite(_cur.id),
           ),
           IconButton(tooltip: 'Informações', icon: const Icon(Icons.info_outline), onPressed: _info),
         ],

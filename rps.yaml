@@ -1,0 +1,24 @@
+scripts:
+  # Baixa/atualiza as dependências do pubspec.yaml
+  get: flutter pub get
+  # Apaga as pastas de build (build/, .dart_tool/ etc)
+  clean: flutter clean
+  # Limpa tudo e reinstala as dependências do zero
+  reset: flutter clean;flutter pub get
+
+  
+  run: flutter run
+  run:release: flutter run --release
+
+
+  # Roda a suíte de testes
+  test: flutter test
+  # Roda o linter/analisador estático do Dart
+  analyze: flutter analyze
+  # Formata todo o código do projeto
+  format: dart format .
+
+  # Gera os ícones do app a partir de flutter_launcher_icons.yaml
+  icons: dart run flutter_launcher_icons -f flutter_launcher_icons.yaml
+  # Gera a splash screen nativa a partir de flutter_native_splash.yaml
+  splash: dart run flutter_native_splash:create --path=flutter_native_splash.yaml

@@ -1,0 +1,21 @@
+flutter_native_splash:
+  # Fundo sólido — o app é escuro, então claro e escuro usam a mesma cor (docs/guia-folio-flutter.md)
+  color: "#121318"
+  color_dark: "#121318"
+
+  # Só o símbolo (leque de fotos), sem fundo — vai no centro
+  image: assets/icons/folio-icon-foreground.png
+  image_dark: assets/icons/folio-icon-foreground.png
+
+  # Android 12+ tem API própria e mais restritiva
+  android_12:
+    color: "#121318"
+    color_dark: "#121318"
+    image: assets/icons/folio-icon-foreground.png
+    image_dark: assets/icons/folio-icon-foreground.png
+    icon_background_color: "#121318"
+    icon_background_color_dark: "#121318"
+
+  android: true
+  ios: false  # o projeto só tem a pasta android
+  web: false
