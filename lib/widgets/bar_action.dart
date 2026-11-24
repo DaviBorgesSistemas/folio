@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:folio/core/theme.dart';
+import 'package:folio/core/app_colors.dart';
 
 class BarAction extends StatelessWidget {
   const BarAction(this.icon, this.label, this.onTap, {super.key, this.color});

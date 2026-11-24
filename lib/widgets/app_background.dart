@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:folio/core/theme.dart';
+import 'package:folio/core/app_colors.dart';
 
 class AppBackground extends StatelessWidget {
   const AppBackground({super.key, required this.child});

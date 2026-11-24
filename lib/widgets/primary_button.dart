@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:folio/core/theme.dart';
+import 'package:folio/core/app_colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({super.key, required this.label, required this.onPressed});
