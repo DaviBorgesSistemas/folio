@@ -31,7 +31,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets\icons\folio-mark.svg
+    - assets/icons/folio-mark.svg
+    - assets/icons/album-outline.svg
   fonts:
     - family: PlusJakartaSans
       fonts:

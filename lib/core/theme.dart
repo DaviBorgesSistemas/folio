@@ -3,7 +3,12 @@ import 'package:folio/core/app_colors.dart';
 import 'package:folio/core/app_fonts.dart';
 
 ThemeData buildTheme() {
-  final base = ThemeData.dark(useMaterial3: true);
+  // Com a fonte definida aqui, todo texto do app já usa a Plus Jakarta Sans.
+  final base = ThemeData(
+    brightness: Brightness.dark,
+    useMaterial3: true,
+    fontFamily: AppFonts.family,
+  );
   return base.copyWith(
     scaffoldBackgroundColor: Colors.transparent,
     colorScheme: const ColorScheme.dark(
@@ -22,7 +27,6 @@ ThemeData buildTheme() {
       foregroundColor: AppColors.text,
     ),
     textTheme: base.textTheme.apply(
-      fontFamily: AppFonts.family,
       bodyColor: AppColors.text,
       displayColor: AppColors.text,
     ),

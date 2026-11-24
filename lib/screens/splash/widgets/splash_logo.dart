@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:folio/core/app_colors.dart';
 import 'package:folio/core/app_fonts.dart';
+import 'package:folio/core/app_images.dart';
 import 'package:folio/core/context_ext.dart';
 
 class SplashLogo extends StatefulWidget {
@@ -59,7 +60,7 @@ class _SplashLogoState extends State<SplashLogo>
             scale: Tween<double>(begin: 0.72, end: 1).animate(_logo),
             child: SizedBox(
               width: context.wp(35),
-              child: SvgPicture.asset('assets/icons/folio-mark.svg'),
+              child: SvgPicture.asset(AppImages.folioMark),
             ),
           ),
         ),
@@ -70,7 +71,6 @@ class _SplashLogoState extends State<SplashLogo>
           child: const Text(
             'Folio',
             style: TextStyle(
-              fontFamily: AppFonts.family,
               fontSize: 38,
               fontWeight: AppFonts.extraBold,
               height: 1,
@@ -86,7 +86,6 @@ class _SplashLogoState extends State<SplashLogo>
           child: const Text(
             'Sua galeria, organizada',
             style: TextStyle(
-              fontFamily: AppFonts.family,
               fontSize: 15,
               fontWeight: AppFonts.regular,
               letterSpacing: -0.15,

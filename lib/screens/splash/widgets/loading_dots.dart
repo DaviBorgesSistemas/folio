@@ -12,7 +12,6 @@ class LoadingDots extends StatefulWidget {
 
 class _LoadingDotsState extends State<LoadingDots>
     with SingleTickerProviderStateMixin {
-  static const _idle = Color(0xFF2C2C32);
   static const _cycle = Duration(milliseconds: 1800);
   // Atraso de cada ponto como fração do ciclo (0 s, 0,35 s e 0,7 s de 1,8 s).
   static const _delays = [0.0, 0.35 / 1.8, 0.7 / 1.8];
@@ -58,7 +57,7 @@ class _LoadingDotsState extends State<LoadingDots>
           height: 8,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Color.lerp(_idle, AppColors.accent, pulse),
+            color: Color.lerp(AppColors.dotIdle, AppColors.accent, pulse),
             boxShadow: pulse == 0
                 ? null
                 : [
