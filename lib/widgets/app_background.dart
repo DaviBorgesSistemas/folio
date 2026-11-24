@@ -16,7 +16,6 @@ class AppBackground extends StatelessWidget {
     ]);
   }
 
-  /// Uma mancha de cor que esmaece até ficar transparente.
   Widget _blob(Alignment at, Color color) => Positioned.fill(
         child: DecoratedBox(
           decoration: BoxDecoration(
