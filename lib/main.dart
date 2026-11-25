@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:folio/app.dart';
+import 'package:folio/core/app_orientation.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  AppOrientation.lockPortrait();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,

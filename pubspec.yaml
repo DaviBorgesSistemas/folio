@@ -33,6 +33,7 @@ flutter:
   assets:
     - assets/icons/folio-mark.svg
     - assets/icons/album-outline.svg
+    - assets/images/
   fonts:
     - family: PlusJakartaSans
       fonts:
