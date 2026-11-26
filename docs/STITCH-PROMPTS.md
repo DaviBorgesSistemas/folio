@@ -6,12 +6,14 @@ Prompts em inglês para o Google Stitch, escritos para reproduzir o protótipo [
 
 **O que mudou nesta versão:** paleta Material 3 (azul-violeta) no lugar do verde-água; fundo com manchas de cor e superfícies de vidro; botão segmentado e botão flutuante (FAB); pasta virtual **Favoritas**; visualizador em tela cheia com barra de ações flutuante e zoom; excluir sem diálogo, com aviso "Desfazer".
 
-**Telas do protótipo (7) e camadas (5):**
+**Telas do protótipo (9) e camadas (6):**
 
 | # | Tela | Camadas que abrem nela |
 |---|---|---|
 | 0 | Splash | — |
 | 1 | Boas-vindas | — |
+| 1b | Permissão: habilitar acesso a todos os arquivos | Folha "Por que precisamos dessa permissão?" |
+| 1c | Ajustes do Android: Acesso a todos os arquivos | — |
 | 2 | Leitura | — |
 | 3 | Pastas | Campo de busca |
 | 4 | Dentro da pasta | Modo de seleção, menu da pasta, aviso "Desfazer" |
@@ -93,6 +95,56 @@ Layout, top to bottom, with 24px side padding and 28px top padding:
 7. Ghost button below, 48px, muted text: "Agora não".
 
 No bottom navigation on this screen.
+```
+
+---
+
+## 1b. Permissão: acesso a todos os arquivos
+
+Aparece ao tocar em "Permitir acesso às fotos" (Android 11+). Gere a tela e, em seguida, a folha de explicação sobre ela.
+
+```
+Design the ALL-FILES-ACCESS PERMISSION screen of "Folio" (mobile 390x844, dark, Brazilian Portuguese), following the Folio design system (Material 3 + glassmorphism): base #121318 with soft blurred glows (blue-violet top-left, pink right, teal bottom-left), text #E3E1E9, muted #C5C5D0, primary #BFC2FF (text on primary #272A78), glass fill rgba(255,255,255,.07) with 1px border rgba(255,255,255,.14) and 22px backdrop blur, font Plus Jakarta Sans. 24px side padding.
+
+Top to bottom:
+1. Top bar, 64px: a back arrow icon button on the left, nothing else.
+2. A small frosted-glass card (28px radius, 16px padding) that mimics the Android settings screen the user will see next. Inside: a header row with a back arrow and the label "Permissões" (15px bold); below it a row with the Folio mark on a 44px glass tile (14px radius) and the name "Folio" (17px bold); below it a raised row (fill #292A31, 16px radius, 14px/16px padding) with the text "Acesso para gerenciar todos os arquivos" (15px) and, on the right, a Material 3 switch in the ON state (48x28 track filled #BFC2FF, white-violet thumb #272A78 on the right).
+3. Flexible empty space.
+4. Heading "Habilite a permissão de acesso a todos os arquivos para explorar o Folio!" at 26px, extra-bold, letter-spacing -0.03em, line-height 1.1.
+5. Body, 16px muted, line-height 1.5, 12px below: "A permissão de Acesso a Todos os Arquivos é necessária para acessar fotos e vídeos no seu dispositivo. Conceda esta permissão ao Folio para assegurar o uso normal do app."
+6. Primary button, full width, 56px, fully rounded: "Vá agora".
+7. Below it, a text link, 48px tall, centered, 14px semibold muted: "Sobre esta permissão".
+
+No bottom navigation on this screen.
+```
+
+**Folha "Por que precisamos dessa permissão?"** (abre sobre a tela 1b ao tocar em "Sobre esta permissão"; gere como camada da mesma tela):
+
+```
+Over the permission screen, dimmed by a rgba(0,0,0,.62) scrim, show a bottom sheet in strong glass (fill rgba(34,35,44,.62), 1px border rgba(255,255,255,.14), 22px backdrop blur, 28px top radius, 28px top / 24px side and bottom padding, 16px gap). Content, top to bottom: a 48px outline lock icon in primary #BFC2FF, centered; the title "Por que precisamos dessa permissão?" at 22px extra-bold; three paragraphs in 15px muted, line-height 1.5:
+- "Devido às restrições do sistema, o Android 11 e versões superiores exigem "Acesso a todos os arquivos" para listar as fotos e vídeos no seu dispositivo." (the quoted phrase in primary color)
+- "1. Esta permissão será usada somente para acessar fotos e vídeos no seu dispositivo e não permitirá que tenhamos acesso aos seus dados privados, garantindo a segurança de dados no seu dispositivo." (the bold clause in primary color)
+- "2. "Acesso a todos os arquivos" também é bastante considerado pelo Google. Qualquer app que solicite esta permissão precisa passar por um processo de avaliação rigoroso antes de ser disponibilizado no Google Play."
+Then a primary button, full width, 56px, fully rounded: "Vá agora". No close X, no illustration besides the lock.
+```
+
+---
+
+## 1c. Ajustes do Android: Acesso a todos os arquivos
+
+É uma tela **do sistema**, não do Folio: serve para mostrar o passo seguinte do fluxo. Por isso não usa vidro, manchas de cor nem a fonte Plus Jakarta Sans.
+
+```
+Design the Android system settings page "Acesso a todos os arquivos" (mobile 390x844, Brazilian Portuguese), in plain Android 14 dark style, NOT in the Folio glass style: pure black background #000000, Roboto font, no glows, no glass.
+
+Top to bottom:
+1. A white back arrow on the top-left, 24px, 56px tall top bar.
+2. 48px below, the page title "Acesso a todos os arquivos", 34px regular (400), white, left aligned with 28px side padding.
+3. 28px below, one rounded row (28px radius, fill #262626, 22px/20px padding, 20px side margin): the text "Acesso para gerenciar todos os arquivos" 17px white on the left, and on the right a Material switch in the OFF state (56x32 track #4A4A4A, light-gray thumb #E6E6E6 on the left).
+4. 24px below, a description in 14px gray #8A8A8A, line-height 1.45, 48px side padding: "Permitir que o app leia, modifique e exclua todos os arquivos deste dispositivo ou de qualquer volume de armazenamento conectado. Se a permissão for concedida, o app poderá acessar arquivos sem nenhum aviso prévio."
+5. The rest of the screen is empty black.
+
+Also provide the ON variant: switch track #8AB4F8 with a dark-blue thumb #0B2A5B on the right.
 ```
 
 ---
@@ -230,5 +282,6 @@ Also design the DISCARD dialog over the dimmed editor (scrim rgba(0,0,0,.62)): s
 - **Os rótulos "Camera", "Screenshots", "Ux", "Pins", "Thing", "WhatsApp Documents"** estão em inglês de propósito: são nomes de pastas reais do Android, não texto da interface.
 - **A pasta "Favoritas"** é virtual (junta as favoritas de todas as pastas) e fica sempre em primeiro lugar na lista.
 - **Dois desenhos do logo.** Dentro do app (splash e boas-vindas) vale a **marca** [folio-mark.svg](folio-mark.svg) sobre uma peça de vidro escura, para combinar com o resto da interface. O **ícone claro de lançador** [folio-icon.svg](folio-icon.svg) (gradiente azul-violeta) é só para a tela inicial do celular, e não deve aparecer nas telas. Se o Stitch desenhar outro logo, anexe [folio-mark-ref.png](folio-mark-ref.png) (a marca já sobre a peça de vidro) como imagem de referência e peça "use this exact logo tile".
+- **Fluxo da permissão (1 → 1b → 1c → 2).** "Permitir acesso às fotos" leva à tela 1b; "Sobre esta permissão" abre a folha de explicação; "Vá agora" leva aos ajustes do sistema (1c); ligar o botão volta ao app e inicia a leitura. A tela 1c imita o Android de propósito, então não aplique o visual do Folio nela.
 - **Fotos de exemplo:** o protótipo gera paisagens estilizadas por código. No Stitch, peça imagens com essas mesmas paletas, sem pessoas.
 - **Itens simulados no protótipo** (Compartilhar, Bloquear, Abrir com, Imprimir, Definir como) aparecem normalmente nos menus; o Stitch só desenha, não precisa de comportamento.

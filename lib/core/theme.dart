@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:folio/core/app_colors.dart';
 import 'package:folio/core/app_fonts.dart';
+import 'package:folio/core/fade_route.dart';
 
 ThemeData buildTheme() {
   // Com a fonte definida aqui, todo texto do app já usa a Plus Jakarta Sans.
@@ -11,6 +12,7 @@ ThemeData buildTheme() {
   );
   return base.copyWith(
     scaffoldBackgroundColor: Colors.transparent,
+    pageTransitionsTheme: fadePageTransitions, // fade em toda troca de tela
     colorScheme: const ColorScheme.dark(
       primary: AppColors.accent,
       onPrimary: AppColors.onAccent,

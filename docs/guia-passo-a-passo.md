@@ -341,6 +341,8 @@ O ícone no lugar do logo é provisório. O logo em SVG entra mais tarde, junto 
 
 **Conferir:** use um **celular real**. O emulador quase não tem fotos. Ao tocar no botão, o diálogo do Android aparece. Se negar, o aviso diz "Sem acesso às fotos". Se o diálogo não aparece, as permissões do `AndroidManifest.xml` estão faltando.
 
+> **Mais tarde:** o protótipo também mostra as telas de "Acesso a todos os arquivos" (explicação, folha "Por que precisamos dessa permissão?" e a página de ajustes do Android). Elas não entram neste passo; estão descritas no [guia completo](guia-folio-flutter.md), seção 8, e nos prompts 1b e 1c de [STITCH-PROMPTS.md](STITCH-PROMPTS.md).
+
 ---
 
 # Parte B: dados e estado

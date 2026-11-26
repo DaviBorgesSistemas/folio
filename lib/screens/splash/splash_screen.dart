@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:folio/core/context_ext.dart';
+import 'package:folio/core/fade_route.dart';
 import 'package:folio/screens/splash/widgets/loading_dots.dart';
 import 'package:folio/screens/welcome/welcome_screen.dart';
 import 'package:folio/screens/splash/widgets/splash_logo.dart';
@@ -37,14 +38,7 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> _leave() async {
     await _c.forward(); 
     if (!mounted) return;
-    Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 400),
-        pageBuilder: (_, _, _) => const WelcomeScreen(),
-        transitionsBuilder: (_, animation, _, child) =>
-            FadeTransition(opacity: animation, child: child),
-      ),
-    );
+    Navigator.of(context).pushReplacement(FadeRoute(const WelcomeScreen()));
   }
 
   @override

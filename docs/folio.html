@@ -94,6 +94,31 @@ h1{margin:0 0 12px;font-size:31px;line-height:1.1;font-weight:800;letter-spacing
 .checks li{display:flex;align-items:center;gap:10px;font-size:15px;color:#DAD8DF}
 .checks .acc{flex:none}
 
+/* Permissão: acesso a todos os arquivos (Android 11+) */
+.pmock{margin:8px 0 0;border-radius:28px;background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--glass-line);padding:16px;display:flex;flex-direction:column;gap:14px}
+.pmock .ph{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700}
+.pmock .app{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:700}
+.pmock .app .logo{width:44px;height:44px;border-radius:14px}
+.pswitch{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;background:var(--surface2);font-size:15px;font-weight:500}
+.pswitch span{flex:1}
+.tg{width:48px;height:28px;border-radius:14px;background:var(--accent);position:relative;flex:none}
+.tg::after{content:"";position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:10px;background:var(--on-accent)}
+.plink{height:48px;font-size:14px;font-weight:600;color:var(--muted);text-align:center;justify-content:center;display:flex;align-items:center}
+.sheet .why{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.sheet .why b{color:var(--accent);font-weight:600}
+.sheet .whyhead{display:flex;justify-content:center;color:var(--accent)}
+/* Ajustes do Android: imita o sistema (fundo preto), não o visual do Folio */
+.screen[data-id="sys"]{background:#000;font-family:Roboto,system-ui,sans-serif}
+.sys{flex:1;padding:8px 20px 0}
+.sys h2{margin:48px 8px 28px;font-size:34px;line-height:1.15;font-weight:500;color:#fff}
+.sys .srow{display:flex;align-items:center;gap:16px;padding:22px 20px;border-radius:28px;background:#262626;font-size:17px;color:#fff;width:100%}
+.sys .srow span{flex:1}
+.sys .stg{width:56px;height:32px;border-radius:16px;background:#4a4a4a;position:relative;flex:none;transition:background .2s}
+.sys .stg::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:12px;background:#e6e6e6;transition:transform .2s}
+.sys .srow[aria-checked="true"] .stg{background:#8ab4f8}
+.sys .srow[aria-checked="true"] .stg::after{transform:translateX(24px);background:#0b2a5b}
+.sys p{margin:24px 28px;font-size:14px;line-height:1.45;color:#8a8a8a}
+
 /* Leitura */
 .eyebrow{font-size:14px;font-weight:700;color:var(--accent)}
 .bignum{margin-top:8px;font-size:64px;line-height:1;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
@@ -243,6 +268,33 @@ h1{margin:0 0 12px;font-size:31px;line-height:1.1;font-weight:800;letter-spacing
       </ul>
       <button class="btn" id="wAllow">Permitir acesso às fotos</button>
       <button class="btn ghost" id="wNo">Agora não</button>
+    </div>
+  </section>
+
+  <!-- 1b. Permissão: acesso a todos os arquivos (Android 11+). "Sobre esta permissão" abre a folha de explicação -->
+  <section class="screen" data-id="perm">
+    <div class="topbar"><button class="iconbtn" id="pBack" aria-label="Voltar" data-icon="back"></button></div>
+    <div class="pad" style="padding-top:8px">
+      <div class="pmock">
+        <div class="ph"><span data-icon="back" data-size="22"></span>Permissões</div>
+        <div class="app"><span class="logo"><img src="folio-mark.svg" alt="" draggable="false"></span>Folio</div>
+        <div class="pswitch"><span>Acesso para gerenciar todos os arquivos</span><i class="tg"></i></div>
+      </div>
+      <div style="flex:1"></div>
+      <h1 style="font-size:26px;margin-bottom:12px">Habilite a permissão de acesso a todos os arquivos para explorar o Folio!</h1>
+      <p class="lead" style="margin-bottom:28px">A permissão de Acesso a Todos os Arquivos é necessária para acessar fotos e vídeos no seu dispositivo. Conceda esta permissão ao Folio para assegurar o uso normal do app.</p>
+      <button class="btn" id="pGo">Vá agora</button>
+      <button class="plink" id="pAbout">Sobre esta permissão</button>
+    </div>
+  </section>
+
+  <!-- 1c. Ajustes do Android: "Acesso a todos os arquivos" (tela do sistema, simulada) -->
+  <section class="screen" data-id="sys">
+    <div class="topbar"><button class="iconbtn" id="sBack" aria-label="Voltar" data-icon="back"></button></div>
+    <div class="sys">
+      <h2>Acesso a todos os arquivos</h2>
+      <button class="srow" id="sSwitch" role="switch" aria-checked="false"><span>Acesso para gerenciar todos os arquivos</span><i class="stg"></i></button>
+      <p>Permitir que o app leia, modifique e exclua todos os arquivos deste dispositivo ou de qualquer volume de armazenamento conectado. Se a permissão for concedida, o app poderá acessar arquivos sem nenhum aviso prévio.</p>
     </div>
   </section>
 
@@ -553,7 +605,18 @@ $('[data-id="splash"]').addEventListener('click',leaveSplash);
 setTimeout(leaveSplash,1800);
 
 /* ---------- 1 e 2: boas-vindas e leitura ---------- */
-$('#wAllow').onclick=()=>go('scan');
+$('#wAllow').onclick=()=>go('perm');
+$('#pBack').onclick=back;$('#sBack').onclick=back;
+$('#pGo').onclick=()=>{$('#sSwitch').setAttribute('aria-checked','false');go('sys')};
+$('#pAbout').onclick=()=>openSheet(`<div class="whyhead">${icon('lock',48)}</div><h2>Por que precisamos dessa permissão?</h2>
+  <p class="why">Devido às restrições do sistema, o Android 11 e versões superiores exigem <b>"Acesso a todos os arquivos"</b> para listar as fotos e vídeos no seu dispositivo.</p>
+  <p class="why">1. Esta permissão será usada somente para acessar fotos e vídeos no seu dispositivo <b>e não permitirá que tenhamos acesso aos seus dados privados</b>, garantindo a segurança de dados no seu dispositivo.</p>
+  <p class="why">2. "Acesso a todos os arquivos" também é bastante considerado pelo Google. Qualquer app que solicite esta permissão precisa passar por um processo de avaliação rigoroso antes de ser disponibilizado no Google Play.</p>
+  <button class="btn" data-close>Vá agora</button>`);
+$('#sSwitch').onclick=e=>{
+  const b=e.currentTarget;b.setAttribute('aria-checked','true');
+  setTimeout(()=>{S.stack.length-=2;S.stack.push('welcome');show('scan')},450); /* concedido: volta ao app e segue para a leitura */
+};
 $('#wNo').onclick=()=>toast('Sem acesso às fotos, o Folio não consegue listar as pastas');
 $('#wTiles').innerHTML=[0,1,2,3,4,5].map(i=>`<img alt="" src="${thumbURL({kind:'gen',seed:hashStr('boas')+i*131,w:900,h:900})}">`).join('');
 

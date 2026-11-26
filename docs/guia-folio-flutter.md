@@ -1220,6 +1220,14 @@ class WelcomeScreen extends StatelessWidget {
 
 Teste: ao tocar em "Permitir", o Android mostra o diálogo de permissão. Se você negar, aparece o aviso com o atalho para os ajustes. "Agora não" só mostra o aviso e mantém a tela. O mosaico de capas do protótipo é enfeite e fica de fora da v1.
 
+### Telas de "Acesso a todos os arquivos" (Android 11+)
+
+O protótipo ([folio.html](folio.html)) mostra um fluxo extra depois de "Permitir acesso às fotos": **tela de explicação** ("Habilite a permissão de acesso a todos os arquivos…", botões "Vá agora" e "Sobre esta permissão"), **folha** "Por que precisamos dessa permissão?" e a **página de ajustes do sistema** com o botão "Acesso para gerenciar todos os arquivos". Os textos e as medidas estão em [STITCH-PROMPTS.md](STITCH-PROMPTS.md), telas 1b e 1c.
+
+- A página de ajustes é do Android, o app não a desenha. Você só abre ela com `openAppSettings()` (do pacote `permission_handler`) ou `PhotoManager.openSetting()`.
+- Ao voltar para o app (`WidgetsBindingObserver.didChangeAppLifecycleState`, estado `resumed`), peça o estado de novo e, se houver acesso, navegue para a leitura.
+- Para **só ler e listar** fotos, o `photo_manager` funciona com as permissões de mídia da seção 3. O "acesso a todos os arquivos" (`MANAGE_EXTERNAL_STORAGE`) só é preciso se o app escrever ou excluir fora da galeria do sistema, e a Google Play exige declaração e avaliação para usá-lo. Se declarar, adicione `<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>` no `AndroidManifest.xml`.
+
 ---
 
 ## 9. Tela 2: leitura das imagens

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:folio/core/app_colors.dart';
-import 'package:folio/core/app_images.dart';
 import 'package:folio/screens/welcome/widget/founded_images_tile.dart';
 import 'package:folio/widgets/app_snack_bar.dart';
 import 'package:folio/widgets/folio_app_bar.dart';
-import 'package:folio/widgets/glass.dart';
 import 'package:photo_manager/photo_manager.dart';
 
+import '../../core/fade_route.dart';
 import '../../widgets/primary_button.dart';
+import '../permission_access/permission_access_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -17,23 +16,17 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  Future<void> _allow(BuildContext context) async {
-    final state = await PhotoManager.requestPermissionExtend();
-    // Depois de um await, a tela pode já ter saído: confira antes de usar o context.
-    if (!context.mounted) return;
-    if (state.hasAccess) {
-      AppSnackBar.show(
-        context,
-        'Acesso às fotos liberado',
-        type: AppSnackBarType.success,
-      );
-    } else {
-      AppSnackBar.show(
-        context,
-        'Sem acesso às fotos',
-        type: AppSnackBarType.error,
-      );
-    }
+  Future<void> _allow(BuildContext context) async => Navigator.of(
+    context,
+  ).pushReplacement(FadeRoute(const PermissionAccessScreen()));
+
+  // "Agora não": não pede nada ao sistema, só avisa que sem acesso não há pastas.
+  void _notNow(BuildContext context) {
+    AppSnackBar.show(
+      context,
+      'Sem acesso às fotos, o Folio não consegue listar as pastas',
+      type: AppSnackBarType.error,
+    );
   }
 
   @override
@@ -44,7 +37,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FoundedImagesTile(),
-          SizedBox(height: 32),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Text(
@@ -88,13 +81,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           ),
           SizedBox(height: 8),
-           Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: PrimaryButton.transparent(
               label: 'Agora não',
-              onPressed: () => _allow(context),
+              onPressed: () => _notNow(context),
             ),
           ),
+          SizedBox(height: 56),
         ],
       ),
     );
