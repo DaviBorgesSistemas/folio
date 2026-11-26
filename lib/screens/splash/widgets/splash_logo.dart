@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:folio/core/app_colors.dart';
 import 'package:folio/core/app_fonts.dart';
 import 'package:folio/core/app_images.dart';
@@ -60,7 +59,7 @@ class _SplashLogoState extends State<SplashLogo>
             scale: Tween<double>(begin: 0.72, end: 1).animate(_logo),
             child: SizedBox(
               width: context.wp(35),
-              child: SvgPicture.asset(AppImages.folioMark),
+              child: AppSvg.asset(AppSvg.folioMark),
             ),
           ),
         ),

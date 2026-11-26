@@ -81,12 +81,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           ),
           SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: PrimaryButton.transparent(
-              label: 'Agora não',
-              onPressed: () => _notNow(context),
-            ),
+          PrimaryButton.transparent(
+            label: 'Agora não',
+            onPressed: () => _notNow(context),
           ),
           SizedBox(height: 56),
         ],

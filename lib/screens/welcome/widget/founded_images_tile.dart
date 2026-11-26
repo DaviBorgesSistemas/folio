@@ -56,7 +56,7 @@ class FoundedImagesTile extends StatelessWidget {
                           for (final path in AppImages.backgrounds)
                             ClipRRect(
                               borderRadius: BorderRadius.circular(20),
-                              child: Image.asset(path, fit: BoxFit.cover),
+                              child: AppImages.asset(path, fit: BoxFit.cover),
                             ),
                         ],
                       ),

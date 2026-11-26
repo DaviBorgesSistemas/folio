@@ -19,6 +19,7 @@ dependencies:
   pro_image_editor: ^12.0.0
   share_plus: ^12.0.2
   flutter_svg: ^2.3.0
+  permission_handler: ^12.0.3
 
 dev_dependencies:
   flutter_test:
@@ -31,8 +32,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icons/folio-mark.svg
-    - assets/icons/album-outline.svg
+    - assets/icons/
     - assets/images/
   fonts:
     - family: PlusJakartaSans

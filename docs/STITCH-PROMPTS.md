@@ -108,7 +108,7 @@ Design the ALL-FILES-ACCESS PERMISSION screen of "Folio" (mobile 390x844, dark, 
 
 Top to bottom:
 1. Top bar, 64px: a back arrow icon button on the left, nothing else.
-2. A small frosted-glass card (28px radius, 16px padding) that mimics the Android settings screen the user will see next. Inside: a header row with a back arrow and the label "Permissões" (15px bold); below it a row with the Folio mark on a 44px glass tile (14px radius) and the name "Folio" (17px bold); below it a raised row (fill #292A31, 16px radius, 14px/16px padding) with the text "Acesso para gerenciar todos os arquivos" (15px) and, on the right, a Material 3 switch in the ON state (48x28 track filled #BFC2FF, white-violet thumb #272A78 on the right).
+2. A small frosted-glass card (28px radius, 16px padding) that mimics the Android settings screen the user will see next. Inside: a header row with a back arrow and the label "Permissões" (15px bold); below it a row with the Folio mark on a 44px glass tile (14px radius) and the name "Folio" (17px bold); below it a raised row (fill #292A31, 16px radius, 14px/16px padding) with the text "Acesso para gerenciar todos os arquivos" (15px) and, on the right, a decorative switch-like pill, NOT interactive (48x28 track filled #BFC2FF, 22px round thumb #272A78 aligned to the LEFT).
 3. Flexible empty space.
 4. Heading "Habilite a permissão de acesso a todos os arquivos para explorar o Folio!" at 26px, extra-bold, letter-spacing -0.03em, line-height 1.1.
 5. Body, 16px muted, line-height 1.5, 12px below: "A permissão de Acesso a Todos os Arquivos é necessária para acessar fotos e vídeos no seu dispositivo. Conceda esta permissão ao Folio para assegurar o uso normal do app."

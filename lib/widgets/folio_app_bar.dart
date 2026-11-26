@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:folio/core/app_fonts.dart';
 import 'package:folio/core/app_images.dart';
 import 'package:folio/widgets/glass.dart';
@@ -29,11 +28,7 @@ class FolioAppBar extends StatelessWidget implements PreferredSizeWidget {
               radius: 12,
               innerHighlight: true,
               child: Center(
-                child: SvgPicture.asset(
-                  AppImages.albumOutline,
-                  width: 20,
-                  height: 20,
-                ),
+                child: AppSvg.asset(AppSvg.albumOutline, size: 20),
               ),
             ),
           ),
