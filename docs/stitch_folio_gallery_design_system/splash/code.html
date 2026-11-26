@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Splash</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+
+    .folio-canvas {
+      background-color: #121318;
+      background-image:
+        radial-gradient(circle at 8% 8%, rgba(122, 128, 255, 0.34) 0%, transparent 52%),
+        radial-gradient(circle at 96% 28%, rgba(255, 128, 190, 0.20) 0%, transparent 48%),
+        radial-gradient(circle at 12% 92%, rgba(60, 200, 210, 0.20) 0%, transparent 50%);
+    }
+
+    .folio-logo-tile {
+      width: 120px;
+      height: 120px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 18px 50px rgba(122, 128, 255, 0.38);
+      animation: logoScaleIn 520ms cubic-bezier(0.2, 0, 0, 1) both;
+    }
+
+    .folio-wordmark {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      animation: fadeUpSoft 420ms cubic-bezier(0.2, 0, 0, 1) 140ms both;
+    }
+
+    .folio-tagline {
+      animation: fadeUpSoft 420ms cubic-bezier(0.2, 0, 0, 1) 240ms both;
+    }
+
+    .folio-dots-dock {
+      bottom: 56px;
+    }
+
+    .folio-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background-color: #2C2C32;
+    }
+
+    .folio-dot-1 {
+      animation: dotPulse 1.5s ease-in-out 0ms infinite;
+    }
+
+    .folio-dot-2 {
+      background-color: #BFC2FF;
+      animation: dotPulse 1.5s ease-in-out 250ms infinite;
+    }
+
+    .folio-dot-3 {
+      animation: dotPulse 1.5s ease-in-out 500ms infinite;
+    }
+
+    @keyframes logoScaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeUpSoft {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes dotPulse {
+      0%, 100% {
+        background-color: #2C2C32;
+        opacity: 0.7;
+      }
+      40% {
+        background-color: #BFC2FF;
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .folio-logo-tile,
+      .folio-wordmark,
+      .folio-tagline,
+      .folio-dot-1,
+      .folio-dot-2,
+      .folio-dot-3 {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      .folio-dot-2 {
+        background-color: #BFC2FF;
+      }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <main class="folio-canvas relative min-h-[884px] w-full px-dialog-pad flex flex-col items-center justify-center overflow-hidden" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <div class="flex flex-col items-center text-center">
+      <!-- Frosted dark glass logo tile -->
+      <div class="folio-logo-tile flex items-center justify-center" aria-hidden="true">
+        <!-- Folio mark: fan of 3 photo cards (~90% of tile = 108px) -->
+        <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="frontCardBg" x1="25" y1="24" x2="83" y2="86" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#F7F7FF"></stop>
+              <stop offset="100%" stop-color="#D4D7FF"></stop>
+            </linearGradient>
+            <linearGradient id="sunGrad" x1="65" y1="31" x2="75" y2="41" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FFCCB3"></stop>
+              <stop offset="100%" stop-color="#FF7B6B"></stop>
+            </linearGradient>
+            <filter id="frontCardShadow" x="15" y="16" width="78" height="82" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#5B61D6" flood-opacity="0.38"></feDropShadow>
+            </filter>
+            <clipPath id="frontCardClip">
+              <rect x="24" y="23" width="60" height="62" rx="14"></rect>
+            </clipPath>
+          </defs>
+
+          <!-- Back card left (-16 deg, #BFC2FF @ 30%) -->
+          <rect x="24" y="23" width="60" height="62" rx="14" fill="#BFC2FF" fill-opacity="0.30" transform="rotate(-16 54 54)"></rect>
+
+          <!-- Back card right (+11 deg, #BFC2FF @ 55%) -->
+          <rect x="24" y="23" width="60" height="62" rx="14" fill="#BFC2FF" fill-opacity="0.55" transform="rotate(11 54 54)"></rect>
+
+          <!-- Front card with minimalist landscape -->
+          <g filter="url(#frontCardShadow)">
+            <rect x="24" y="23" width="60" height="62" rx="14" fill="url(#frontCardBg)"></rect>
+            <g clip-path="url(#frontCardClip)">
+              <!-- Coral-to-peach sun top right -->
+              <circle cx="70" cy="36" r="5.5" fill="url(#sunGrad)"></circle>
+              <!-- Lighter violet mountain range behind -->
+              <path d="M22 68 L42 48 L59 63 L72 52 L88 68 L88 88 L22 88 Z" fill="#9AA0FF"></path>
+              <!-- Darker navy-indigo mountain range in front -->
+              <path d="M22 76 L37 60 L54 73 L70 59 L88 76 L88 88 L22 88 Z" fill="#272A78"></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Wordmark -->
+      <h1 class="folio-wordmark font-display text-on-background mt-5" data-design-text-token="screen-title">
+        Folio
+      </h1>
+
+      <!-- Tagline -->
+      <p class="folio-tagline font-body text-body-md text-on-surface-muted mt-3" data-design-text-token="body-md">
+        Sua galeria, organizada
+      </p>
+    </div>
+
+    <!-- Quiet 3-dot loading indicator -->
+    <div class="folio-dots-dock absolute left-1/2 -translate-x-1/2 flex items-center gap-2" aria-label="Carregando">
+      <span class="folio-dot folio-dot-1"></span>
+      <span class="folio-dot folio-dot-2"></span>
+      <span class="folio-dot folio-dot-3"></span>
+    </div>
+  </main>
+
+
+</body></html>

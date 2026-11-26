@@ -2,11 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:folio/core/app_colors.dart';
 import 'package:folio/core/app_images.dart';
+import 'package:folio/screens/permission_access/widgets/dialog_permission_access.dart';
 import 'package:folio/widgets/glass.dart';
 import 'package:folio/widgets/primary_button.dart';
+import 'package:folio/screens/permission_access/permission_access_controller.dart';
 
-class PermissionAccessScreen extends StatelessWidget {
+class PermissionAccessScreen extends StatefulWidget {
   const PermissionAccessScreen({super.key});
+
+  @override
+  State<PermissionAccessScreen> createState() => _PermissionAccessScreenState();
+}
+
+class _PermissionAccessScreenState extends State<PermissionAccessScreen>
+    with WidgetsBindingObserver {
+  final controller = PermissionAccessController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) controller.refresh();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,21 +101,28 @@ class PermissionAccessScreen extends StatelessWidget {
                             ),
                           ),
                           // Só visual: parece um switch, mas não é interativo.
-                          Container(
-                            width: 48,
-                            height: 28,
-                            padding: const EdgeInsets.all(3),
-                            alignment: Alignment.centerRight,
-                            decoration: BoxDecoration(
-                              color: AppColors.accent,
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            child: Container(
-                              width: 22,
-                              height: 22,
-                              decoration: const BoxDecoration(
-                                color: AppColors.onAccent,
-                                shape: BoxShape.circle,
+                          ValueListenableBuilder<bool>(
+                            valueListenable: controller.granted,
+                            builder: (context, granted, _) => Container(
+                              width: 48,
+                              height: 28,
+                              padding: const EdgeInsets.all(3),
+                              alignment: granted
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                color: granted
+                                    ? AppColors.accent
+                                    : AppColors.muted,
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              child: Container(
+                                width: 22,
+                                height: 22,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.onAccent,
+                                  shape: BoxShape.circle,
+                                ),
                               ),
                             ),
                           ),
@@ -115,15 +150,15 @@ class PermissionAccessScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   PrimaryButton(
-                    label: 'Vá agora',
-                    onPressed: () {},
+                    label: 'Vá agora', 
+                    onPressed: controller.requestPermission,
                   ),
                   SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: PrimaryButton.transparent(
-                      label: 'Sobre esta permissão',
-                      onPressed: () {},
+                  PrimaryButton.transparent(
+                    label: 'Sobre esta permissão',
+                    onPressed: () => openDialogPermissionAccess(
+                      context,
+                      onTap: controller.requestPermission,
                     ),
                   ),
                   SizedBox(height: 56),
@@ -132,6 +167,7 @@ class PermissionAccessScreen extends StatelessWidget {
             ],
           ),
         ),
+      
       ),
     );
   }

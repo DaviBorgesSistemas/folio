@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações Android — Acesso a todos os arquivos (Ativado)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+
+    .android-root {
+      background-color: #000000;
+      color: #FFFFFF;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .android-topbar {
+      height: 56px;
+      padding: 0 12px;
+    }
+
+    .android-title {
+      margin-top: 48px;
+      padding: 0 28px;
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 40px;
+      color: #FFFFFF;
+    }
+
+    .android-row {
+      margin: 28px 20px 0 20px;
+      padding: 22px 20px;
+      border-radius: 28px;
+      background-color: #262626;
+    }
+
+    .android-row-label {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 22px;
+      color: #FFFFFF;
+    }
+
+    .android-switch-on {
+      width: 56px;
+      height: 32px;
+      padding: 4px;
+      border-radius: 9999px;
+      background-color: #8AB4F8;
+    }
+
+    .android-thumb-on {
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      background-color: #0B2A5B;
+    }
+
+    .android-description {
+      margin-top: 24px;
+      padding: 0 48px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #8A8A8A;
+    }
+  </style>
+</head>
+<body class="android-root antialiased">
+  <main class="android-root min-h-[884px] w-full flex flex-col" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- 1. 56px top bar with 24px white back arrow -->
+    <header class="android-topbar flex items-center">
+      <button type="button" aria-label="Voltar" class="w-11 h-11 rounded-full flex items-center justify-center text-white">
+        <span class="material-symbols-outlined text-[24px]" aria-hidden="true">arrow_back</span>
+      </button>
+    </header>
+
+    <!-- 2. 48px below: page title 34px regular -->
+    <h1 class="android-title">Acesso a todos os arquivos</h1>
+
+    <!-- 3. 28px below: rounded row with Material switch ON -->
+    <div class="android-row flex items-center justify-between gap-4">
+      <span class="android-row-label">Acesso para gerenciar todos os arquivos</span>
+      <div role="switch" aria-checked="true" aria-label="Acesso para gerenciar todos os arquivos" class="android-switch-on flex items-center justify-end shrink-0">
+        <span class="android-thumb-on block"></span>
+      </div>
+    </div>
+
+    <!-- 4. 24px below: description -->
+    <p class="android-description">
+      Permitir que o app leia, modifique e exclua todos os arquivos deste dispositivo ou de qualquer volume de armazenamento conectado. Se a permissão for concedida, o app poderá acessar arquivos sem nenhum aviso prévio.
+    </p>
+  </main>
+
+
+</body></html>

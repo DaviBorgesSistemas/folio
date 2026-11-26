@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Lendo seu celular (Concluído)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+
+    .folio-canvas {
+      background-color: #121318;
+      background-image:
+        radial-gradient(circle at 8% 8%, rgba(122, 128, 255, 0.34) 0%, transparent 52%),
+        radial-gradient(circle at 96% 28%, rgba(255, 128, 190, 0.20) 0%, transparent 48%),
+        radial-gradient(circle at 12% 92%, rgba(60, 200, 210, 0.20) 0%, transparent 50%);
+    }
+
+    .glass-surface {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .scan-number {
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress-track {
+      height: 8px;
+      background-color: #27272D;
+    }
+
+    .scan-row {
+      min-height: 50px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .scan-row:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <main class="folio-canvas min-h-[884px] w-full px-dialog-pad pt-sheet-pad-y pb-5 flex flex-col overflow-x-hidden" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- 1, 2, 3. Eyebrow, Huge Counter, Subtitle -->
+    <header class="flex flex-col">
+      <span class="font-label text-label-lg font-bold text-primary" data-design-text-token="label-lg">
+        Lendo seu celular
+      </span>
+      <div class="scan-number font-display text-on-background mt-2" data-design-text-token="display-num">
+        10.917
+      </div>
+      <p class="font-body text-body-lg text-on-surface-muted mt-1.5" data-design-text-token="body-lg">
+        imagens encontradas em 8 pastas
+      </p>
+    </header>
+
+    <!-- 4. Progress bar at 100% + caption -->
+    <section class="mt-5 flex flex-col gap-2" aria-label="Progresso da leitura">
+      <div class="progress-track w-full rounded-full overflow-hidden" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+        <div class="w-full h-full rounded-full bg-primary"></div>
+      </div>
+      <span class="font-caption text-caption-sm text-on-surface-muted tabular-nums" data-design-text-token="caption-sm">
+        100% concluído
+      </span>
+    </section>
+
+    <!-- 5. Tall frosted-glass card listing all 8 folders -->
+    <section class="flex-1 my-5 flex flex-col" aria-label="Pastas lidas">
+      <div class="glass-surface rounded-card py-1 px-4 flex flex-col">
+        <div class="scan-row flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="material-symbols-outlined text-[22px] text-primary shrink-0" aria-hidden="true">check</span>
+            <span class="font-body text-body-lg font-semibold text-on-surface truncate" data-design-text-token="menu-label">WhatsApp</span>
+          </div>
+          <span class="font-body text-body-md text-on-surface-muted tabular-nums shrink-0" data-design-text-token="body-md">1.335</span>
+        </div>
+
+        <div class="scan-row flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="material-symbols-outlined text-[22px] text-primary shrink-0" aria-hidden="true">check</span>
+            <span class="font-body text-body-lg font-semibold text-on-surface truncate" data-design-text-token="menu-label">Screenshots</span>
+          </div>
+          <span class="font-body text-body-md text-on-surface-muted tabular-nums shrink-0" data-design-text-token="body-md">187</span>
+        </div>
+
+        <div class="scan-row flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="material-symbols-outlined text-[22px] text-primary shrink-0" aria-hidden="true">check</span>
+            <span class="font-body text-body-lg font-semibold text-on-surface truncate" data-design-text-token="menu-label">Ux</span>
+          </div>
+          <span class="font-body text-body-md text-on-surface-muted tabular-nums shrink-0" data-design-text-token="body-md">91</span>
+        </div>
+
+        <div class="scan-row flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="material-symbols-outlined text-[22px] text-primary shrink-0" aria-hidden="true">check</span>
+            <span class="font-body text-body-lg font-semibold text-on-surface truncate" data-design-text-token="menu-label">Pins</span>
+          </div>
+          <span class="font-body text-body-md text-on-surface-muted tabular-nums shrink-0" data-design-text-token="body-md">64</span>
+        </div>
+
+        <div class="scan-row flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="material-symbols-outlined text-[22px] text-primary shrink-0" aria-hidden="true">check</span>
+            <span class="font-body text-body-lg font-semibold text-on-surface truncate" data-design-text-token="menu-label">Downloads</span>
+          </div>
+          <span class="font-body text-body-md text-on-surface-muted tabular-nums shrink-0" data-design-text-token="body-md">38</span>
+        </div>
+
+        <div class="scan-row flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="material-symbols-outlined text-[22px] text-primary shrink-0" aria-hidden="true">check</span>
+            <span class="font-body text-body-lg font-semibold text-on-surface truncate" data-design-text-token="menu-label">Thing</span>
+          </div>
+          <span class="font-body text-body-md text-on-surface-muted tabular-nums shrink-0" data-design-text-token="body-md">12</span>
+        </div>
+
+        <div class="scan-row flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="material-symbols-outlined text-[22px] text-primary shrink-0" aria-hidden="true">check</span>
+            <span class="font-body text-body-lg font-semibold text-on-surface truncate" data-design-text-token="menu-label">WhatsApp Documents</span>
+          </div>
+          <span class="font-body text-body-md text-on-surface-muted tabular-nums shrink-0" data-design-text-token="body-md">2</span>
+        </div>
+
+        <div class="scan-row flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="material-symbols-outlined text-[22px] text-primary shrink-0" aria-hidden="true">check</span>
+            <span class="font-body text-body-lg font-semibold text-on-surface truncate" data-design-text-token="menu-label">Camera</span>
+          </div>
+          <span class="font-body text-body-md text-on-surface-muted tabular-nums shrink-0" data-design-text-token="body-md">9.188</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Enabled primary button -->
+    <footer>
+      <!-- COMPONENT: button-primary -->
+      <button data-component-id="button-primary" data-component-type="button" data-component-variant="primary" type="button" class="w-full h-14 rounded-button bg-primary text-on-primary font-button text-button-lg flex items-center justify-center transition-opacity duration-state-change ease-state-change hover:opacity-90 active:opacity-80">
+        <span data-design-text-token="button-lg">Ver pastas encontradas</span>
+      </button>
+    </footer>
+  </main>
+
+
+</body></html>

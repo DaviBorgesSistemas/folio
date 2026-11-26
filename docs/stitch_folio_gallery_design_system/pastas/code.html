@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Pastas</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+    .icon-filled { font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+
+    .folio-canvas {
+      background-color: #121318;
+      background-image:
+        radial-gradient(circle at 8% 8%, rgba(122, 128, 255, 0.34) 0%, transparent 52%),
+        radial-gradient(circle at 96% 28%, rgba(255, 128, 190, 0.20) 0%, transparent 48%),
+        radial-gradient(circle at 12% 92%, rgba(60, 200, 210, 0.20) 0%, transparent 50%);
+    }
+
+    .glass-surface {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11);
+    }
+
+    .glass-badge-sm {
+      background: rgba(34, 35, 44, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(14px) saturate(1.4);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    }
+
+    .fab-glass {
+      width: 60px;
+      height: 60px;
+      right: 20px;
+      bottom: 24px;
+      background: rgba(122, 128, 255, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .folders-title {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 40px;
+      letter-spacing: -0.035em;
+    }
+
+    /* Stylized landscape gradient scenes (never glass) */
+    .sc-sunset { background: linear-gradient(180deg, #ffccb3 0%, #ff7b6b 55%, #5c2b48 100%); }
+    .sc-dusk { background: linear-gradient(180deg, #16224a 0%, #2b3f7a 62%, #101528 100%); }
+    .sc-golden { background: linear-gradient(180deg, #ffd89b 0%, #e07a5f 58%, #6d3227 100%); }
+    .sc-pastel { background: linear-gradient(155deg, #8ee3ef 0%, #f7b2cc 65%, #8470a8 100%); }
+    .sc-night { background: linear-gradient(180deg, #0b2a32 0%, #134752 60%, #07191e 100%); }
+    .sc-violet { background: linear-gradient(155deg, #5d2e8c 0%, #d4529a 62%, #2a1842 100%); }
+    .sc-tealblue { background: linear-gradient(170deg, #3cc8d2 0%, #3a6bc4 65%, #18234f 100%); }
+    .sc-hill-dark { background: rgba(20, 16, 36, 0.78); }
+    .sc-hill-terra { background: rgba(122, 46, 31, 0.82); }
+    .sc-moon { background: rgba(238, 242, 255, 0.90); }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <div class="folio-canvas relative min-h-[884px] w-full overflow-x-hidden pb-24" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- 1. Top bar (64px) -->
+    <header class="h-16 pl-4 pr-3 flex items-center justify-between">
+      <h1 class="folders-title font-display text-on-background" data-design-text-token="screen-title-mobile">
+        Pastas
+      </h1>
+      <!-- COMPONENT: button-icon -->
+      <button data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Buscar pasta" class="w-11 h-11 rounded-full bg-transparent text-on-surface flex items-center justify-center transition-colors duration-state-change ease-state-change hover:bg-white/10 active:bg-white/15">
+        <span class="material-symbols-outlined text-[24px]" aria-hidden="true">search</span>
+      </button>
+    </header>
+
+    <!-- 2. Subtitle -->
+    <p class="px-dialog-pad font-body text-body-md text-on-surface-muted tabular-nums" data-design-text-token="body-md">
+      10.917 imagens · 8 pastas
+    </p>
+
+    <!-- 3. Material 3 Segmented Button -->
+    <div class="px-5 mt-3.5">
+      <!-- COMPONENT: button-segmented -->
+      <div data-component-id="button-segmented" data-component-type="button" data-component-variant="secondary" role="group" aria-label="Ordenar pastas" class="w-full h-10 rounded-segmented border border-outline glass-surface grid grid-cols-3 overflow-hidden">
+        <button type="button" aria-pressed="true" class="bg-secondary-container text-on-secondary-container font-label text-label-md flex items-center justify-center gap-1.5 border-r border-outline">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">check</span>
+          <span data-design-text-token="label-md" class="whitespace-nowrap">Mais imagens</span>
+        </button>
+        <button type="button" aria-pressed="false" class="text-on-surface-muted font-label text-label-md flex items-center justify-center border-r border-outline hover:bg-white/5">
+          <span data-design-text-token="label-md">A–Z</span>
+        </button>
+        <button type="button" aria-pressed="false" class="text-on-surface-muted font-label text-label-md flex items-center justify-center hover:bg-white/5">
+          <span data-design-text-token="label-md">Recentes</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 4. Two-column grid of frosted-glass folder cards -->
+    <main class="px-5 mt-4 grid grid-cols-2 gap-3">
+      <!-- 1. Favoritas (with bottom-left glass heart badge) -->
+      <!-- COMPONENT: card-interactive -->
+      <a href="#favoritas" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="relative w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-sunset relative overflow-hidden">
+            <div class="sc-hill-dark absolute inset-x-0 bottom-0 h-2/5 rounded-t-[100%]"></div>
+          </div>
+          <div class="sc-pastel relative overflow-hidden">
+            <div class="absolute top-2 left-2 w-6 h-6 rounded-full bg-white/30"></div>
+          </div>
+          <div class="sc-dusk relative overflow-hidden">
+            <div class="sc-moon absolute top-2 right-2 w-2.5 h-2.5 rounded-full"></div>
+          </div>
+          <div class="sc-violet relative overflow-hidden">
+            <div class="sc-hill-dark absolute inset-x-0 bottom-0 h-2/5 rounded-t-[90%]"></div>
+          </div>
+          <span class="glass-badge-sm absolute left-2 bottom-2 w-7 h-7 rounded-full flex items-center justify-center text-primary" aria-hidden="true">
+            <span class="material-symbols-outlined icon-filled text-[16px]">favorite</span>
+          </span>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">Favoritas</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">3 imagens</p>
+        </header>
+      </a>
+
+      <!-- 2. Camera -->
+      <a href="#camera" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-golden relative overflow-hidden">
+            <div class="sc-hill-terra absolute inset-x-0 bottom-0 h-1/2 rounded-t-[80%]"></div>
+          </div>
+          <div class="sc-tealblue relative overflow-hidden">
+            <div class="sc-hill-dark absolute inset-x-0 bottom-0 h-1/3 rounded-t-[90%]"></div>
+          </div>
+          <div class="sc-sunset relative overflow-hidden"></div>
+          <div class="sc-night relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">Camera</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">9.188 imagens</p>
+        </header>
+      </a>
+
+      <!-- 3. WhatsApp -->
+      <a href="#whatsapp" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-dusk relative overflow-hidden">
+            <div class="sc-moon absolute top-2 right-2 w-2.5 h-2.5 rounded-full"></div>
+          </div>
+          <div class="sc-sunset relative overflow-hidden"></div>
+          <div class="sc-pastel relative overflow-hidden">
+            <div class="absolute bottom-1.5 right-1.5 w-7 h-7 rounded-full bg-white/25"></div>
+          </div>
+          <div class="sc-golden relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">WhatsApp</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">1.335 imagens</p>
+        </header>
+      </a>
+
+      <!-- 4. Screenshots -->
+      <a href="#screenshots" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-night relative overflow-hidden"></div>
+          <div class="sc-violet relative overflow-hidden"></div>
+          <div class="sc-tealblue relative overflow-hidden"></div>
+          <div class="sc-dusk relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">Screenshots</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">187 imagens</p>
+        </header>
+      </a>
+
+      <!-- 5. Ux -->
+      <a href="#ux" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-pastel relative overflow-hidden">
+            <div class="absolute top-2 left-2 w-6 h-6 rounded-full bg-white/30"></div>
+          </div>
+          <div class="sc-tealblue relative overflow-hidden"></div>
+          <div class="sc-violet relative overflow-hidden"></div>
+          <div class="sc-sunset relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">Ux</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">91 imagens</p>
+        </header>
+      </a>
+
+      <!-- 6. Pins -->
+      <a href="#pins" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-sunset relative overflow-hidden"></div>
+          <div class="sc-golden relative overflow-hidden">
+            <div class="sc-hill-terra absolute inset-x-0 bottom-0 h-1/2 rounded-t-[80%]"></div>
+          </div>
+          <div class="sc-violet relative overflow-hidden"></div>
+          <div class="sc-pastel relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">Pins</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">64 imagens</p>
+        </header>
+      </a>
+
+      <!-- 7. Downloads -->
+      <a href="#downloads" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-tealblue relative overflow-hidden"></div>
+          <div class="sc-night relative overflow-hidden"></div>
+          <div class="sc-dusk relative overflow-hidden"></div>
+          <div class="sc-golden relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">Downloads</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">38 imagens</p>
+        </header>
+      </a>
+
+      <!-- 8. Thing -->
+      <a href="#thing" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-violet relative overflow-hidden"></div>
+          <div class="sc-pastel relative overflow-hidden"></div>
+          <div class="sc-sunset relative overflow-hidden"></div>
+          <div class="sc-tealblue relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">Thing</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">12 imagens</p>
+        </header>
+      </a>
+
+      <!-- 9. WhatsApp Documents -->
+      <a href="#whatsapp-documents" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-dusk relative overflow-hidden"></div>
+          <div class="sc-night relative overflow-hidden"></div>
+          <div class="sc-golden relative overflow-hidden"></div>
+          <div class="sc-violet relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">WhatsApp Documents</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">2 imagens</p>
+        </header>
+      </a>
+    </main>
+
+    <!-- Bottom helper text -->
+    <p class="px-dialog-pad mt-6 font-caption text-caption-sm text-on-surface-muted text-center text-pretty" data-design-text-token="caption-sm">
+      Toque no botão + para testar o editor com fotos do seu aparelho. Elas aparecem na pasta Importadas.
+    </p>
+
+    <!-- 5. Floating Action Button (bottom-right) -->
+    <!-- COMPONENT: button-fab -->
+    <button data-component-id="button-fab" data-component-type="button" data-component-variant="primary" type="button" aria-label="Importar foto para o editor" class="fab-glass fixed rounded-fab text-primary flex items-center justify-center transition-transform duration-state-change ease-state-change active:scale-95">
+      <span class="material-symbols-outlined text-[24px]" aria-hidden="true">add</span>
+    </button>
+  </div>
+
+
+</body></html>

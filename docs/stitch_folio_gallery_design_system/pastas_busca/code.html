@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Pastas (Busca)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+
+    .folio-canvas {
+      background-color: #121318;
+      background-image:
+        radial-gradient(circle at 8% 8%, rgba(122, 128, 255, 0.34) 0%, transparent 52%),
+        radial-gradient(circle at 96% 28%, rgba(255, 128, 190, 0.20) 0%, transparent 48%),
+        radial-gradient(circle at 12% 92%, rgba(60, 200, 210, 0.20) 0%, transparent 50%);
+    }
+
+    .glass-surface {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11);
+    }
+
+    .fab-glass {
+      width: 60px;
+      height: 60px;
+      right: 20px;
+      bottom: 24px;
+      background: rgba(122, 128, 255, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .folders-title {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 40px;
+      letter-spacing: -0.035em;
+    }
+
+    .search-input-px {
+      padding-left: 18px;
+      padding-right: 14px;
+    }
+
+    /* Stylized landscape gradient scenes (never glass) */
+    .sc-sunset { background: linear-gradient(180deg, #ffccb3 0%, #ff7b6b 55%, #5c2b48 100%); }
+    .sc-dusk { background: linear-gradient(180deg, #16224a 0%, #2b3f7a 62%, #101528 100%); }
+    .sc-golden { background: linear-gradient(180deg, #ffd89b 0%, #e07a5f 58%, #6d3227 100%); }
+    .sc-pastel { background: linear-gradient(155deg, #8ee3ef 0%, #f7b2cc 65%, #8470a8 100%); }
+    .sc-night { background: linear-gradient(180deg, #0b2a32 0%, #134752 60%, #07191e 100%); }
+    .sc-violet { background: linear-gradient(155deg, #5d2e8c 0%, #d4529a 62%, #2a1842 100%); }
+    .sc-moon { background: rgba(238, 242, 255, 0.90); }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <div class="folio-canvas relative min-h-[884px] w-full overflow-x-hidden pb-24" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Top bar (64px) with toggled search button -->
+    <header class="h-16 pl-4 pr-3 flex items-center justify-between">
+      <h1 class="folders-title font-display text-on-background" data-design-text-token="screen-title-mobile">
+        Pastas
+      </h1>
+      <!-- COMPONENT: button-icon-active -->
+      <button data-component-id="button-icon-active" data-component-type="button" data-component-variant="icon" type="button" aria-label="Fechar busca" aria-pressed="true" class="w-11 h-11 rounded-full bg-white/15 text-primary flex items-center justify-center transition-colors duration-state-change ease-state-change">
+        <span class="material-symbols-outlined text-[24px]" aria-hidden="true">search</span>
+      </button>
+    </header>
+
+    <!-- 48px fully rounded glass search input -->
+    <div class="px-5 mt-1">
+      <div class="h-12 rounded-full glass-surface search-input-px flex items-center gap-2">
+        <input type="search" value="what" placeholder="Buscar pasta" aria-label="Buscar pasta" class="w-full bg-transparent border-none p-0 text-body-lg text-on-surface placeholder:text-on-surface-muted focus:ring-0">
+        <button type="button" aria-label="Limpar busca" class="w-8 h-8 rounded-full text-on-surface-muted flex items-center justify-center hover:bg-white/10 shrink-0">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filtered 2-column grid matching "what" -->
+    <main class="px-5 mt-4 grid grid-cols-2 gap-3">
+      <!-- WhatsApp -->
+      <!-- COMPONENT: card-interactive -->
+      <a href="#whatsapp" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-dusk relative overflow-hidden">
+            <div class="sc-moon absolute top-2 right-2 w-2.5 h-2.5 rounded-full"></div>
+          </div>
+          <div class="sc-sunset relative overflow-hidden"></div>
+          <div class="sc-pastel relative overflow-hidden">
+            <div class="absolute bottom-1.5 right-1.5 w-7 h-7 rounded-full bg-white/25"></div>
+          </div>
+          <div class="sc-golden relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">WhatsApp</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">1.335 imagens</p>
+        </header>
+      </a>
+
+      <!-- WhatsApp Documents -->
+      <a href="#whatsapp-documents" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="glass-surface rounded-card p-card-pad pb-card-pad-bottom flex flex-col gap-2.5 transition-transform duration-state-change ease-state-change active:scale-[0.98]">
+        <div class="w-full aspect-square rounded-cover overflow-hidden grid grid-cols-2 grid-rows-2 gap-collage-gap">
+          <div class="sc-dusk relative overflow-hidden"></div>
+          <div class="sc-night relative overflow-hidden"></div>
+          <div class="sc-golden relative overflow-hidden"></div>
+          <div class="sc-violet relative overflow-hidden"></div>
+        </div>
+        <header class="px-card-text-x flex flex-col">
+          <h2 data-design-text-token="title-md" class="font-title text-title-md text-on-surface truncate">WhatsApp Documents</h2>
+          <p data-design-text-token="caption-md" class="font-caption text-caption-md text-on-surface-muted tabular-nums">2 imagens</p>
+        </header>
+      </a>
+    </main>
+
+    <!-- Floating Action Button -->
+    <!-- COMPONENT: button-fab -->
+    <button data-component-id="button-fab" data-component-type="button" data-component-variant="primary" type="button" aria-label="Importar foto para o editor" class="fab-glass fixed rounded-fab text-primary flex items-center justify-center transition-transform duration-state-change ease-state-change active:scale-95">
+      <span class="material-symbols-outlined text-[24px]" aria-hidden="true">add</span>
+    </button>
+  </div>
+
+
+</body></html>

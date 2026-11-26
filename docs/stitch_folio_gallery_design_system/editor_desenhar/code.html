@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Editor (Desenhar)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+
+    .editor-photo { border-radius: 6px; aspect-ratio: 4 / 3; }
+    .editor-panel { height: 168px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .editor-tabs { height: 72px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .tab-label-xs { font-size: 12px; font-weight: 600; line-height: 16px; }
+
+    .swatch-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 9999px;
+      border: 2px solid #3A404C;
+    }
+    .swatch-selected {
+      outline: 2px solid #FFFFFF;
+      outline-offset: 2px;
+    }
+    .sw-white { background-color: #FFFFFF; }
+    .sw-black { background-color: #111111; }
+    .sw-coral { background-color: #FF5A5F; }
+    .sw-amber { background-color: #FFC145; }
+    .sw-primary { background-color: #BFC2FF; }
+    .sw-blue { background-color: #4C8DFF; }
+    .sw-purple { background-color: #C86BFA; }
+
+    .slider-track { height: 6px; }
+    .slider-fill-40 { width: 40%; }
+    .slider-thumb { width: 20px; height: 20px; left: 40%; transform: translate(-50%, -50%); }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <div class="bg-background min-h-[884px] w-full flex flex-col overflow-hidden" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Common Top Bar -->
+    <header class="h-16 px-2 flex items-center justify-between gap-2 shrink-0">
+      <div class="flex items-center gap-1 min-w-0">
+        <button data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Fechar editor" class="w-11 h-11 rounded-full bg-transparent text-on-surface flex items-center justify-center shrink-0 hover:bg-white/10">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">close</span>
+        </button>
+        <h1 class="font-title text-topbar-title text-on-surface truncate" data-design-text-token="topbar-title">Editar</h1>
+      </div>
+      <div class="flex items-center gap-2 pr-1 shrink-0">
+        <button data-component-id="chip-action" data-component-type="chip" data-component-variant="action" type="button" class="h-11 px-4 rounded-chip border border-outline text-on-surface font-label text-label-lg flex items-center justify-center hover:bg-white/5">
+          <span data-design-text-token="label-lg">Restaurar</span>
+        </button>
+        <button type="button" class="h-11 px-5 rounded-full bg-primary text-on-primary font-button text-button-ghost font-bold flex items-center justify-center hover:opacity-90">
+          <span data-design-text-token="button-ghost">Salvar</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Common Image Stage with two hand-drawn strokes -->
+    <main class="bg-stage flex-1 px-3 flex items-center justify-center overflow-hidden">
+      <figure class="editor-photo w-full overflow-hidden relative" aria-label="Foto com desenho livre">
+        <svg class="w-full h-full block" viewBox="0 0 366 274" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="duskSky4" x1="0" y1="0" x2="0" y2="274" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0D1633"></stop>
+              <stop offset="58%" stop-color="#1E356B"></stop>
+              <stop offset="100%" stop-color="#2E4A8A"></stop>
+            </linearGradient>
+          </defs>
+          <rect width="366" height="274" fill="url(#duskSky4)"></rect>
+          <circle cx="294" cy="56" r="18" fill="#EEF2FF" fill-opacity="0.92"></circle>
+          <circle cx="294" cy="56" r="30" fill="#BFC2FF" fill-opacity="0.18"></circle>
+          <rect x="16" y="156" width="38" height="118" fill="#0B1124"></rect>
+          <rect x="62" y="128" width="44" height="146" fill="#090E1E"></rect>
+          <rect x="114" y="148" width="34" height="126" fill="#0D142B"></rect>
+          <rect x="156" y="106" width="52" height="168" fill="#080D1C"></rect>
+          <rect x="216" y="138" width="42" height="136" fill="#0B1124"></rect>
+          <rect x="266" y="120" width="48" height="154" fill="#090E1E"></rect>
+          <rect x="322" y="162" width="32" height="112" fill="#0D142B"></rect>
+          <rect x="74" y="144" width="6" height="8" fill="#FFD89B" fill-opacity="0.85"></rect>
+          <rect x="170" y="124" width="7" height="9" fill="#FFD89B" fill-opacity="0.90"></rect>
+          <rect x="186" y="162" width="7" height="9" fill="#FFD89B" fill-opacity="0.85"></rect>
+          <rect x="280" y="138" width="6" height="8" fill="#FFD89B" fill-opacity="0.80"></rect>
+          <!-- Hand-drawn rounded strokes -->
+          <path d="M54 96 C92 58, 134 114, 178 72 C210 42, 238 88, 256 76" stroke="#FF5A5F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M104 196 C148 168, 198 206, 258 176" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </figure>
+    </main>
+
+    <!-- Tool Panel: Desenhar (168px) -->
+    <section class="editor-panel bg-background px-4 pt-3 flex flex-col justify-center gap-4 shrink-0" aria-label="Desenho livre">
+      <!-- Swatch row + Undo -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <button type="button" aria-label="Branco" aria-pressed="true" class="w-10 h-11 flex items-center justify-center">
+            <span class="swatch-dot sw-white swatch-selected block"></span>
+          </button>
+          <button type="button" aria-label="Preto" class="w-10 h-11 flex items-center justify-center">
+            <span class="swatch-dot sw-black block"></span>
+          </button>
+          <button type="button" aria-label="Coral" class="w-10 h-11 flex items-center justify-center">
+            <span class="swatch-dot sw-coral block"></span>
+          </button>
+          <button type="button" aria-label="Amarelo" class="w-10 h-11 flex items-center justify-center">
+            <span class="swatch-dot sw-amber block"></span>
+          </button>
+          <button type="button" aria-label="Lavanda" class="w-10 h-11 flex items-center justify-center">
+            <span class="swatch-dot sw-primary block"></span>
+          </button>
+          <button type="button" aria-label="Azul" class="w-10 h-11 flex items-center justify-center">
+            <span class="swatch-dot sw-blue block"></span>
+          </button>
+          <button type="button" aria-label="Roxo" class="w-10 h-11 flex items-center justify-center">
+            <span class="swatch-dot sw-purple block"></span>
+          </button>
+        </div>
+
+        <button data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Desfazer traço" class="w-11 h-11 rounded-full text-on-surface flex items-center justify-center hover:bg-white/10 shrink-0">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">undo</span>
+        </button>
+      </div>
+
+      <!-- Slider row: Espessura -->
+      <div class="h-11 flex items-center gap-4">
+        <span class="font-label text-label-lg text-on-surface-muted shrink-0" data-design-text-token="label-lg">Espessura</span>
+        <div class="slider-track flex-1 rounded-full bg-surface-raised relative" role="slider" aria-label="Espessura do pincel" aria-valuenow="40" aria-valuemin="1" aria-valuemax="100">
+          <div class="slider-fill-40 h-full rounded-full bg-primary"></div>
+          <span class="slider-thumb rounded-full bg-primary shadow-md absolute top-1/2 block"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Common Tab Bar (72px) -->
+    <nav class="editor-tabs bg-background grid grid-cols-5 items-center shrink-0" aria-label="Ferramentas de edição">
+      <button type="button" aria-selected="false" class="h-full flex flex-col items-center justify-center gap-1 text-on-surface-muted">
+        <span class="material-symbols-outlined text-[22px]" aria-hidden="true">crop</span>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Cortar</span>
+      </button>
+      <button type="button" aria-selected="false" class="h-full flex flex-col items-center justify-center gap-1 text-on-surface-muted">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="8.5" r="4.5"></circle>
+          <circle cx="8.5" cy="14.5" r="4.5"></circle>
+          <circle cx="15.5" cy="14.5" r="4.5"></circle>
+        </svg>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Filtros</span>
+      </button>
+      <button type="button" aria-selected="false" class="h-full flex flex-col items-center justify-center gap-1 text-on-surface-muted">
+        <span class="material-symbols-outlined text-[22px]" aria-hidden="true">tune</span>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Ajustes</span>
+      </button>
+      <button type="button" aria-selected="true" class="h-full flex flex-col items-center justify-center gap-1 text-primary">
+        <span class="material-symbols-outlined text-[22px]" aria-hidden="true">brush</span>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Desenhar</span>
+      </button>
+      <button type="button" aria-selected="false" class="h-full flex flex-col items-center justify-center gap-1 text-on-surface-muted">
+        <span class="material-symbols-outlined text-[22px]" aria-hidden="true">title</span>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Texto</span>
+      </button>
+    </nav>
+  </div>
+
+
+</body></html>

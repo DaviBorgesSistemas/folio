@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Visualizador (Informações)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+
+    .viewer-topbar {
+      height: 72px;
+      background: linear-gradient(180deg, rgba(10, 10, 11, 0.80) 0%, rgba(10, 10, 11, 0) 100%);
+    }
+
+    .scrim-overlay {
+      background: rgba(0, 0, 0, 0.62);
+    }
+
+    .strong-glass-sheet {
+      background: rgba(34, 35, 44, 0.62);
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      border-left: 1px solid rgba(255, 255, 255, 0.14);
+      border-right: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 -10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .info-label-col {
+      width: 104px;
+    }
+
+    .sunset-stage-photo {
+      aspect-ratio: 16 / 9;
+    }
+  </style>
+</head>
+<body class="bg-stage text-on-surface font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <div class="bg-stage relative min-h-[884px] w-full overflow-hidden flex items-center justify-center" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Underlying photo -->
+    <figure class="sunset-stage-photo w-full relative overflow-hidden" aria-hidden="true">
+      <svg class="w-full h-full block" viewBox="0 0 390 220" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyC" x1="0" y1="0" x2="0" y2="220" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFE0C2"></stop>
+            <stop offset="48%" stop-color="#FF9580"></stop>
+            <stop offset="100%" stop-color="#8A3E6B"></stop>
+          </linearGradient>
+        </defs>
+        <rect width="390" height="220" fill="url(#skyC)"></rect>
+        <circle cx="282" cy="74" r="24" fill="#FFF3E0" fill-opacity="0.92"></circle>
+        <path d="M0 156 Q80 116 172 146 T390 132 L390 220 L0 220 Z" fill="#6D3B78" fill-opacity="0.88"></path>
+        <path d="M0 176 Q115 144 218 168 T390 158 L390 220 L0 220 Z" fill="#462252"></path>
+        <path d="M0 194 Q140 175 260 192 T390 182 L390 220 L0 220 Z" fill="#281136"></path>
+      </svg>
+    </figure>
+
+    <!-- Underlying top bar -->
+    <header class="viewer-topbar absolute top-0 inset-x-0 px-2 flex items-center justify-between gap-2 z-10" aria-hidden="true">
+      <div class="flex items-center gap-2 min-w-0">
+        <div class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface">
+          <span class="material-symbols-outlined text-[24px]">arrow_back</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="font-title text-topbar-title text-on-surface truncate">Hoje 14:32</span>
+          <span class="font-caption text-caption-sm text-on-surface-muted tabular-nums">3 de 48</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-1 shrink-0">
+        <div class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface">
+          <span class="material-symbols-outlined text-[24px]">favorite</span>
+        </div>
+        <div class="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined text-[24px]">info</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scrim + Strong Glass Bottom Sheet -->
+    <div class="scrim-overlay absolute inset-0 flex flex-col justify-end z-30">
+      <!-- COMPONENT: modal-drawer -->
+      <section role="dialog" aria-modal="true" aria-labelledby="info-sheet-title" data-component-id="modal-drawer" data-component-type="modal" data-component-variant="drawer" class="strong-glass-sheet w-full rounded-t-sheet-top pt-sheet-pad-y px-dialog-pad pb-dialog-pad flex flex-col gap-5">
+        <h2 id="info-sheet-title" data-design-text-token="dialog-title" class="font-title text-dialog-title text-on-surface">
+          Informações
+        </h2>
+
+        <dl class="flex flex-col gap-3.5">
+          <div class="flex items-baseline gap-3">
+            <dt class="info-label-col font-body text-body-md font-bold text-on-surface shrink-0">Nome</dt>
+            <dd class="font-body text-body-md text-on-surface-muted min-w-0 break-all" data-design-text-token="body-md">IMG_4821.jpg</dd>
+          </div>
+          <div class="flex items-baseline gap-3">
+            <dt class="info-label-col font-body text-body-md font-bold text-on-surface shrink-0">Caminho</dt>
+            <dd class="font-body text-body-md text-on-surface-muted min-w-0 break-all" data-design-text-token="body-md">/storage/emulated/0/Pictures/WhatsApp</dd>
+          </div>
+          <div class="flex items-baseline gap-3">
+            <dt class="info-label-col font-body text-body-md font-bold text-on-surface shrink-0">Tamanho</dt>
+            <dd class="font-body text-body-md text-on-surface-muted tabular-nums min-w-0" data-design-text-token="body-md">412,5 KB</dd>
+          </div>
+          <div class="flex items-baseline gap-3">
+            <dt class="info-label-col font-body text-body-md font-bold text-on-surface shrink-0">Resolução</dt>
+            <dd class="font-body text-body-md text-on-surface-muted tabular-nums min-w-0" data-design-text-token="body-md">1200 × 675 (0,8 MP)</dd>
+          </div>
+          <div class="flex items-baseline gap-3">
+            <dt class="info-label-col font-body text-body-md font-bold text-on-surface shrink-0">Última modificação</dt>
+            <dd class="font-body text-body-md text-on-surface-muted tabular-nums min-w-0" data-design-text-token="body-md">04/11/2026 14:32</dd>
+          </div>
+          <div class="flex items-baseline gap-3">
+            <dt class="info-label-col font-body text-body-md font-bold text-on-surface shrink-0">Data de criação</dt>
+            <dd class="font-body text-body-md text-on-surface-muted tabular-nums min-w-0" data-design-text-token="body-md">18/03/2025 09:14</dd>
+          </div>
+        </dl>
+
+        <div class="pt-1">
+          <!-- COMPONENT: button-primary -->
+          <button data-component-id="button-primary" data-component-type="button" data-component-variant="primary" type="button" class="w-full h-14 rounded-button bg-primary text-on-primary font-button text-button-lg flex items-center justify-center transition-opacity duration-state-change ease-state-change hover:opacity-90 active:opacity-80">
+            <span data-design-text-token="button-lg">OK</span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+</body></html>

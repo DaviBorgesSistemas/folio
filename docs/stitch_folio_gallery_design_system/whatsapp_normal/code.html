@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — WhatsApp (Normal)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+    .icon-filled { font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+
+    .folio-canvas {
+      background-color: #121318;
+      background-image:
+        radial-gradient(circle at 8% 8%, rgba(122, 128, 255, 0.34) 0%, transparent 52%),
+        radial-gradient(circle at 96% 28%, rgba(255, 128, 190, 0.20) 0%, transparent 48%),
+        radial-gradient(circle at 12% 92%, rgba(60, 200, 210, 0.20) 0%, transparent 50%);
+    }
+
+    .fav-shadow { filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.65)); }
+
+    /* Stylized landscape & abstract gradient scenes (never glass) */
+    .sc-sunset { background: linear-gradient(180deg, #ffccb3 0%, #ff7b6b 55%, #5c2b48 100%); }
+    .sc-dusk { background: linear-gradient(180deg, #16224a 0%, #2b3f7a 62%, #101528 100%); }
+    .sc-golden { background: linear-gradient(180deg, #ffd89b 0%, #e07a5f 58%, #6d3227 100%); }
+    .sc-pastel { background: linear-gradient(155deg, #8ee3ef 0%, #f7b2cc 65%, #8470a8 100%); }
+    .sc-night { background: linear-gradient(180deg, #0b2a32 0%, #134752 60%, #07191e 100%); }
+    .sc-violet { background: linear-gradient(155deg, #5d2e8c 0%, #d4529a 62%, #2a1842 100%); }
+    .sc-tealblue { background: linear-gradient(170deg, #3cc8d2 0%, #3a6bc4 65%, #18234f 100%); }
+    .sc-coral { background: linear-gradient(145deg, #ff9a8b 0%, #ff6a88 55%, #3d1d3c 100%); }
+    .sc-hill-dark { background: rgba(20, 16, 36, 0.78); }
+    .sc-hill-terra { background: rgba(122, 46, 31, 0.82); }
+    .sc-moon { background: rgba(238, 242, 255, 0.90); }
+    .sc-tower { background: #051216; }
+    .sc-win { background: rgba(255, 216, 155, 0.82); }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <div class="folio-canvas min-h-[884px] w-full pb-6 overflow-x-hidden" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Top bar (64px) -->
+    <header class="h-16 px-2 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 min-w-0">
+        <!-- COMPONENT: button-icon -->
+        <button data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Voltar" class="w-11 h-11 rounded-full bg-transparent text-on-surface flex items-center justify-center shrink-0 transition-colors duration-state-change ease-state-change hover:bg-white/10">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">arrow_back</span>
+        </button>
+        <div class="flex flex-col min-w-0">
+          <h1 class="font-title text-topbar-title text-on-surface truncate" data-design-text-token="topbar-title">WhatsApp</h1>
+          <span class="font-caption text-caption-sm text-on-surface-muted tabular-nums" data-design-text-token="caption-sm">1.335 imagens</span>
+        </div>
+      </div>
+
+      <!-- COMPONENT: button-icon -->
+      <button data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Mais opções" class="w-11 h-11 rounded-full bg-transparent text-on-surface flex items-center justify-center shrink-0 transition-colors duration-state-change ease-state-change hover:bg-white/10">
+        <span class="material-symbols-outlined text-[24px]" aria-hidden="true">more_vert</span>
+      </button>
+    </header>
+
+    <!-- 3-column photo grid (18 tiles, 3 favorites) -->
+    <main class="px-screen-photo-x mt-1 grid grid-cols-3 gap-grid-photo-gap">
+      <!-- 1 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-sunset relative">
+        <div class="sc-hill-dark absolute inset-x-0 bottom-0 h-2/5 rounded-t-[100%]"></div>
+      </div>
+      <!-- 2 (fav 1) -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-dusk relative">
+        <div class="sc-moon absolute top-3 right-3 w-3 h-3 rounded-full"></div>
+        <div class="sc-hill-dark absolute inset-x-0 bottom-0 h-1/3"></div>
+        <span class="material-symbols-outlined icon-filled fav-shadow text-[18px] text-primary absolute right-1.5 bottom-1.5" aria-label="Favorita">favorite</span>
+      </div>
+      <!-- 3 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-golden relative">
+        <div class="sc-hill-terra absolute inset-x-0 bottom-0 h-1/2 rounded-t-[80%]"></div>
+      </div>
+      <!-- 4 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-pastel relative">
+        <div class="absolute top-2.5 left-2.5 w-10 h-10 rounded-full bg-white/30"></div>
+        <div class="absolute bottom-2 right-2 w-12 h-12 rounded-full bg-white/20"></div>
+      </div>
+      <!-- 5 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-night relative">
+        <div class="sc-tower absolute bottom-0 left-3 w-4 h-10"></div>
+        <div class="sc-tower absolute bottom-0 left-8 w-5 h-14"></div>
+        <div class="sc-win absolute bottom-7 left-9 w-1 h-1"></div>
+        <div class="sc-win absolute bottom-10 left-10 w-1 h-1"></div>
+      </div>
+      <!-- 6 (fav 2) -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-violet relative">
+        <div class="sc-hill-dark absolute inset-x-0 bottom-0 h-2/5 rounded-t-[90%]"></div>
+        <span class="material-symbols-outlined icon-filled fav-shadow text-[18px] text-primary absolute right-1.5 bottom-1.5" aria-label="Favorita">favorite</span>
+      </div>
+      <!-- 7 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-tealblue relative">
+        <div class="sc-hill-dark absolute inset-x-0 bottom-0 h-1/3 rounded-t-[100%]"></div>
+      </div>
+      <!-- 8 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-coral relative">
+        <div class="absolute top-3 left-3 w-12 h-12 rounded-full border border-white/25"></div>
+      </div>
+      <!-- 9 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-golden relative">
+        <div class="sc-hill-terra absolute inset-x-0 bottom-0 h-2/5 rounded-t-[100%]"></div>
+      </div>
+      <!-- 10 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-dusk relative">
+        <div class="sc-moon absolute top-4 left-4 w-2.5 h-2.5 rounded-full"></div>
+      </div>
+      <!-- 11 (fav 3) -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-pastel relative">
+        <div class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/30"></div>
+        <span class="material-symbols-outlined icon-filled fav-shadow text-[18px] text-primary absolute right-1.5 bottom-1.5" aria-label="Favorita">favorite</span>
+      </div>
+      <!-- 12 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-sunset relative">
+        <div class="sc-hill-dark absolute inset-x-0 bottom-0 h-1/3 rounded-t-[75%]"></div>
+      </div>
+      <!-- 13 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-violet relative"></div>
+      <!-- 14 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-night relative">
+        <div class="sc-tower absolute bottom-0 right-3 w-5 h-12"></div>
+        <div class="sc-win absolute bottom-8 right-5 w-1 h-1"></div>
+      </div>
+      <!-- 15 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-tealblue relative"></div>
+      <!-- 16 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-coral relative"></div>
+      <!-- 17 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-golden relative"></div>
+      <!-- 18 -->
+      <div class="aspect-square rounded-tile overflow-hidden sc-dusk relative"></div>
+    </main>
+  </div>
+
+
+</body></html>

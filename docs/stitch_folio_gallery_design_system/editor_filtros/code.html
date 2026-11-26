@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Editor (Filtros)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+
+    .editor-photo { border-radius: 6px; aspect-ratio: 4 / 3; }
+    .editor-panel { height: 168px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .editor-tabs { height: 72px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .tab-label-xs { font-size: 12px; font-weight: 600; line-height: 16px; }
+
+    .filter-thumb {
+      width: 76px;
+      height: 76px;
+      border-radius: 14px;
+      border: 2px solid transparent;
+    }
+    .filter-thumb-active {
+      border-color: #BFC2FF;
+    }
+
+    .f-vivid { filter: saturate(1.7) contrast(1.1); }
+    .f-warm { filter: sepia(0.35) saturate(1.35); }
+    .f-cool { filter: hue-rotate(-18deg) saturate(1.15); }
+    .f-bw { filter: grayscale(1); }
+    .f-sepia { filter: sepia(0.85); }
+    .f-fade { filter: contrast(0.75) brightness(1.15); }
+    .f-noir { filter: grayscale(1) contrast(1.5); }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <div class="bg-background min-h-[884px] w-full flex flex-col overflow-hidden" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Common Top Bar -->
+    <header class="h-16 px-2 flex items-center justify-between gap-2 shrink-0">
+      <div class="flex items-center gap-1 min-w-0">
+        <button data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Fechar editor" class="w-11 h-11 rounded-full bg-transparent text-on-surface flex items-center justify-center shrink-0 hover:bg-white/10">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">close</span>
+        </button>
+        <h1 class="font-title text-topbar-title text-on-surface truncate" data-design-text-token="topbar-title">Editar</h1>
+      </div>
+      <div class="flex items-center gap-2 pr-1 shrink-0">
+        <button data-component-id="chip-action" data-component-type="chip" data-component-variant="action" type="button" class="h-11 px-4 rounded-chip border border-outline text-on-surface font-label text-label-lg flex items-center justify-center hover:bg-white/5">
+          <span data-design-text-token="label-lg">Restaurar</span>
+        </button>
+        <button type="button" class="h-11 px-5 rounded-full bg-primary text-on-primary font-button text-button-ghost font-bold flex items-center justify-center hover:opacity-90">
+          <span data-design-text-token="button-ghost">Salvar</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Common Image Stage -->
+    <main class="bg-stage flex-1 px-3 flex items-center justify-center overflow-hidden">
+      <figure class="editor-photo w-full overflow-hidden" aria-label="Foto em edição">
+        <svg class="w-full h-full block" viewBox="0 0 366 274" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="duskSky2" x1="0" y1="0" x2="0" y2="274" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0D1633"></stop>
+              <stop offset="58%" stop-color="#1E356B"></stop>
+              <stop offset="100%" stop-color="#2E4A8A"></stop>
+            </linearGradient>
+          </defs>
+          <rect width="366" height="274" fill="url(#duskSky2)"></rect>
+          <circle cx="294" cy="56" r="18" fill="#EEF2FF" fill-opacity="0.92"></circle>
+          <circle cx="294" cy="56" r="30" fill="#BFC2FF" fill-opacity="0.18"></circle>
+          <rect x="16" y="156" width="38" height="118" fill="#0B1124"></rect>
+          <rect x="62" y="128" width="44" height="146" fill="#090E1E"></rect>
+          <rect x="114" y="148" width="34" height="126" fill="#0D142B"></rect>
+          <rect x="156" y="106" width="52" height="168" fill="#080D1C"></rect>
+          <rect x="216" y="138" width="42" height="136" fill="#0B1124"></rect>
+          <rect x="266" y="120" width="48" height="154" fill="#090E1E"></rect>
+          <rect x="322" y="162" width="32" height="112" fill="#0D142B"></rect>
+          <rect x="74" y="144" width="6" height="8" fill="#FFD89B" fill-opacity="0.85"></rect>
+          <rect x="88" y="144" width="6" height="8" fill="#FFD89B" fill-opacity="0.55"></rect>
+          <rect x="170" y="124" width="7" height="9" fill="#FFD89B" fill-opacity="0.90"></rect>
+          <rect x="186" y="162" width="7" height="9" fill="#FFD89B" fill-opacity="0.85"></rect>
+          <rect x="280" y="138" width="6" height="8" fill="#FFD89B" fill-opacity="0.80"></rect>
+        </svg>
+      </figure>
+    </main>
+
+    <!-- Tool Panel: Filtros (168px) -->
+    <section class="editor-panel bg-background px-4 pt-3 flex items-center shrink-0" aria-label="Filtros">
+      <div class="flex items-start gap-3 overflow-x-auto no-scrollbar w-full">
+        <!-- Original (selected) -->
+        <button type="button" aria-pressed="true" class="flex flex-col items-center gap-1.5 shrink-0">
+          <div class="filter-thumb filter-thumb-active overflow-hidden">
+            <svg class="w-full h-full block" viewBox="0 0 76 76" fill="none"><rect width="76" height="76" fill="#1E356B"></rect><circle cx="58" cy="18" r="7" fill="#EEF2FF"></circle><rect x="12" y="38" width="16" height="38" fill="#090E1E"></rect><rect x="34" y="30" width="18" height="46" fill="#080D1C"></rect><rect x="39" y="38" width="3" height="4" fill="#FFD89B"></rect></svg>
+          </div>
+          <span class="tab-label-xs font-label text-primary">Original</span>
+        </button>
+
+        <button type="button" aria-pressed="false" class="flex flex-col items-center gap-1.5 shrink-0">
+          <div class="filter-thumb overflow-hidden f-vivid">
+            <svg class="w-full h-full block" viewBox="0 0 76 76" fill="none"><rect width="76" height="76" fill="#1E356B"></rect><circle cx="58" cy="18" r="7" fill="#EEF2FF"></circle><rect x="12" y="38" width="16" height="38" fill="#090E1E"></rect><rect x="34" y="30" width="18" height="46" fill="#080D1C"></rect><rect x="39" y="38" width="3" height="4" fill="#FFD89B"></rect></svg>
+          </div>
+          <span class="tab-label-xs font-label text-on-surface-muted">Vívido</span>
+        </button>
+
+        <button type="button" aria-pressed="false" class="flex flex-col items-center gap-1.5 shrink-0">
+          <div class="filter-thumb overflow-hidden f-warm">
+            <svg class="w-full h-full block" viewBox="0 0 76 76" fill="none"><rect width="76" height="76" fill="#1E356B"></rect><circle cx="58" cy="18" r="7" fill="#EEF2FF"></circle><rect x="12" y="38" width="16" height="38" fill="#090E1E"></rect><rect x="34" y="30" width="18" height="46" fill="#080D1C"></rect><rect x="39" y="38" width="3" height="4" fill="#FFD89B"></rect></svg>
+          </div>
+          <span class="tab-label-xs font-label text-on-surface-muted">Quente</span>
+        </button>
+
+        <button type="button" aria-pressed="false" class="flex flex-col items-center gap-1.5 shrink-0">
+          <div class="filter-thumb overflow-hidden f-cool">
+            <svg class="w-full h-full block" viewBox="0 0 76 76" fill="none"><rect width="76" height="76" fill="#1E356B"></rect><circle cx="58" cy="18" r="7" fill="#EEF2FF"></circle><rect x="12" y="38" width="16" height="38" fill="#090E1E"></rect><rect x="34" y="30" width="18" height="46" fill="#080D1C"></rect><rect x="39" y="38" width="3" height="4" fill="#FFD89B"></rect></svg>
+          </div>
+          <span class="tab-label-xs font-label text-on-surface-muted">Frio</span>
+        </button>
+
+        <button type="button" aria-pressed="false" class="flex flex-col items-center gap-1.5 shrink-0">
+          <div class="filter-thumb overflow-hidden f-bw">
+            <svg class="w-full h-full block" viewBox="0 0 76 76" fill="none"><rect width="76" height="76" fill="#1E356B"></rect><circle cx="58" cy="18" r="7" fill="#EEF2FF"></circle><rect x="12" y="38" width="16" height="38" fill="#090E1E"></rect><rect x="34" y="30" width="18" height="46" fill="#080D1C"></rect><rect x="39" y="38" width="3" height="4" fill="#FFD89B"></rect></svg>
+          </div>
+          <span class="tab-label-xs font-label text-on-surface-muted">P&amp;B</span>
+        </button>
+
+        <button type="button" aria-pressed="false" class="flex flex-col items-center gap-1.5 shrink-0">
+          <div class="filter-thumb overflow-hidden f-sepia">
+            <svg class="w-full h-full block" viewBox="0 0 76 76" fill="none"><rect width="76" height="76" fill="#1E356B"></rect><circle cx="58" cy="18" r="7" fill="#EEF2FF"></circle><rect x="12" y="38" width="16" height="38" fill="#090E1E"></rect><rect x="34" y="30" width="18" height="46" fill="#080D1C"></rect><rect x="39" y="38" width="3" height="4" fill="#FFD89B"></rect></svg>
+          </div>
+          <span class="tab-label-xs font-label text-on-surface-muted">Sépia</span>
+        </button>
+
+        <button type="button" aria-pressed="false" class="flex flex-col items-center gap-1.5 shrink-0">
+          <div class="filter-thumb overflow-hidden f-fade">
+            <svg class="w-full h-full block" viewBox="0 0 76 76" fill="none"><rect width="76" height="76" fill="#1E356B"></rect><circle cx="58" cy="18" r="7" fill="#EEF2FF"></circle><rect x="12" y="38" width="16" height="38" fill="#090E1E"></rect><rect x="34" y="30" width="18" height="46" fill="#080D1C"></rect><rect x="39" y="38" width="3" height="4" fill="#FFD89B"></rect></svg>
+          </div>
+          <span class="tab-label-xs font-label text-on-surface-muted">Fade</span>
+        </button>
+
+        <button type="button" aria-pressed="false" class="flex flex-col items-center gap-1.5 shrink-0">
+          <div class="filter-thumb overflow-hidden f-noir">
+            <svg class="w-full h-full block" viewBox="0 0 76 76" fill="none"><rect width="76" height="76" fill="#1E356B"></rect><circle cx="58" cy="18" r="7" fill="#EEF2FF"></circle><rect x="12" y="38" width="16" height="38" fill="#090E1E"></rect><rect x="34" y="30" width="18" height="46" fill="#080D1C"></rect><rect x="39" y="38" width="3" height="4" fill="#FFD89B"></rect></svg>
+          </div>
+          <span class="tab-label-xs font-label text-on-surface-muted">Noir</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Common Tab Bar (72px) -->
+    <nav class="editor-tabs bg-background grid grid-cols-5 items-center shrink-0" aria-label="Ferramentas de edição">
+      <button type="button" aria-selected="false" class="h-full flex flex-col items-center justify-center gap-1 text-on-surface-muted">
+        <span class="material-symbols-outlined text-[22px]" aria-hidden="true">crop</span>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Cortar</span>
+      </button>
+      <button type="button" aria-selected="true" class="h-full flex flex-col items-center justify-center gap-1 text-primary">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="8.5" r="4.5"></circle>
+          <circle cx="8.5" cy="14.5" r="4.5"></circle>
+          <circle cx="15.5" cy="14.5" r="4.5"></circle>
+        </svg>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Filtros</span>
+      </button>
+      <button type="button" aria-selected="false" class="h-full flex flex-col items-center justify-center gap-1 text-on-surface-muted">
+        <span class="material-symbols-outlined text-[22px]" aria-hidden="true">tune</span>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Ajustes</span>
+      </button>
+      <button type="button" aria-selected="false" class="h-full flex flex-col items-center justify-center gap-1 text-on-surface-muted">
+        <span class="material-symbols-outlined text-[22px]" aria-hidden="true">brush</span>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Desenhar</span>
+      </button>
+      <button type="button" aria-selected="false" class="h-full flex flex-col items-center justify-center gap-1 text-on-surface-muted">
+        <span class="material-symbols-outlined text-[22px]" aria-hidden="true">title</span>
+        <span class="tab-label-xs font-label" data-design-text-token="label-md">Texto</span>
+      </button>
+    </nav>
+  </div>
+
+
+</body></html>

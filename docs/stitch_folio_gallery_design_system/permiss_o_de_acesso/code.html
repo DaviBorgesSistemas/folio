@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Permissão de Acesso</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'background': '#121318',
+        'on-background': '#E3E1E9',
+        'stage': '#0A0A0B',
+        'page-frame': '#07070A',
+        'surface': '#1E1F25',
+        'on-surface': '#E3E1E9',
+        'surface-raised': '#292A31',
+        'on-surface-raised': '#E3E1E9',
+        'on-surface-muted': '#C5C5D0',
+        'outline': '#44454F',
+        'primary': '#BFC2FF',
+        'on-primary': '#272A78',
+        'secondary-container': '#3F4165',
+        'on-secondary-container': '#DFE0FF',
+        'danger': '#FFB4AB',
+        'on-danger': '#690005',
+        'snackbar': '#E3E1E9',
+        'on-snackbar': '#121318',
+        'snackbar-action': '#E0E0FF',
+        'on-snackbar-action': '#3B3E8F',
+      },
+      borderRadius: {
+        'tile': '12px',
+        'chip': '12px',
+        'segmented': '20px',
+        'cover': '20px',
+        'fab': '20px',
+        'menu': '24px',
+        'card': '28px',
+        'bar': '28px',
+        'button': '28px',
+        'dialog': '28px',
+        'sheet-top': '28px',
+        'full': '9999px',
+      },
+      spacing: {
+        'collage-gap': '2px',
+        'grid-photo-gap': '4px',
+        'card-text-x': '6px',
+        'screen-photo-x': '8px',
+        'card-pad': '8px',
+        'card-pad-bottom': '12px',
+        'bar-margin': '14px',
+        'chip-pad-x': '16px',
+        'dialog-pad': '24px',
+        'sheet-pad-y': '28px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'button': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'caption': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-num': ['64px', { lineHeight: '72px', letterSpacing: '-1.92px', fontWeight: '800' }],
+        'display-num-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.96px', fontWeight: '800' }],
+        'screen-title': ['34px', { lineHeight: '40px', letterSpacing: '-1.19px', fontWeight: '800' }],
+        'screen-title-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-1.12px', fontWeight: '800' }],
+        'dialog-title': ['22px', { lineHeight: '28px', letterSpacing: '-0.44px', fontWeight: '800' }],
+        'topbar-title': ['20px', { lineHeight: '26px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'button-lg': ['17px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '700' }],
+        'menu-label': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'button-ghost': ['15px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '600' }],
+        'caption-sm': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '100ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,300..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+
+    .folio-canvas {
+      background-color: #121318;
+      background-image:
+        radial-gradient(circle at 8% 8%, rgba(122, 128, 255, 0.34) 0%, transparent 52%),
+        radial-gradient(circle at 96% 28%, rgba(255, 128, 190, 0.20) 0%, transparent 48%),
+        radial-gradient(circle at 12% 92%, rgba(60, 200, 210, 0.20) 0%, transparent 50%);
+    }
+
+    .glass-surface {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .mini-brand-tile {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .settings-row {
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .m3-switch-track {
+      width: 48px;
+      height: 28px;
+      padding: 3px;
+    }
+
+    .m3-switch-thumb {
+      width: 22px;
+      height: 22px;
+    }
+
+    .perm-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+
+    .perm-app-name {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 22px;
+    }
+
+    .perm-heading {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+  <main class="folio-canvas min-h-[884px] w-full px-dialog-pad pb-5 flex flex-col overflow-x-hidden" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- 1. Top bar (64px) -->
+    <header class="h-16 flex items-center -ml-2.5">
+      <!-- COMPONENT: button-icon -->
+      <button data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Voltar" class="w-11 h-11 rounded-full bg-transparent text-on-surface flex items-center justify-center transition-colors duration-state-change ease-state-change hover:bg-white/10 active:bg-white/15">
+        <span class="material-symbols-outlined text-[24px]" aria-hidden="true">arrow_back</span>
+      </button>
+    </header>
+
+    <!-- 2. Android settings preview card -->
+    <section class="mt-2" aria-label="Prévia da configuração de permissões do Android">
+      <div class="glass-surface rounded-card p-4 flex flex-col gap-4">
+        <!-- Settings header row -->
+        <div class="flex items-center gap-2.5 text-on-surface">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_back</span>
+          <span class="perm-card-title font-title" data-design-text-token="title-md">Permissões</span>
+        </div>
+
+        <!-- App identity row -->
+        <div class="flex items-center gap-3">
+          <div class="mini-brand-tile flex items-center justify-center shrink-0" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="pFrontCardBg" x1="25" y1="24" x2="83" y2="86" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#F7F7FF"></stop>
+                  <stop offset="100%" stop-color="#D4D7FF"></stop>
+                </linearGradient>
+                <linearGradient id="pSunGrad" x1="65" y1="31" x2="75" y2="41" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#FFCCB3"></stop>
+                  <stop offset="100%" stop-color="#FF7B6B"></stop>
+                </linearGradient>
+                <clipPath id="pFrontCardClip">
+                  <rect x="24" y="23" width="60" height="62" rx="14"></rect>
+                </clipPath>
+              </defs>
+              <rect x="24" y="23" width="60" height="62" rx="14" fill="#BFC2FF" fill-opacity="0.30" transform="rotate(-16 54 54)"></rect>
+              <rect x="24" y="23" width="60" height="62" rx="14" fill="#BFC2FF" fill-opacity="0.55" transform="rotate(11 54 54)"></rect>
+              <rect x="24" y="23" width="60" height="62" rx="14" fill="url(#pFrontCardBg)"></rect>
+              <g clip-path="url(#pFrontCardClip)">
+                <circle cx="70" cy="36" r="5.5" fill="url(#pSunGrad)"></circle>
+                <path d="M22 68 L42 48 L59 63 L72 52 L88 68 L88 88 L22 88 Z" fill="#9AA0FF"></path>
+                <path d="M22 76 L37 60 L54 73 L70 59 L88 76 L88 88 L22 88 Z" fill="#272A78"></path>
+              </g>
+            </svg>
+          </div>
+          <span class="perm-app-name font-title text-on-surface" data-design-text-token="button-lg">Folio</span>
+        </div>
+
+        <!-- Raised permission toggle row -->
+        <div class="settings-row bg-surface-raised flex items-center justify-between gap-3">
+          <span class="font-body text-body-md text-on-surface-raised" data-design-text-token="body-md">
+            Acesso para gerenciar todos os arquivos
+          </span>
+          <!-- Material 3 Switch (ON) -->
+          <div role="switch" aria-checked="true" aria-label="Acesso para gerenciar todos os arquivos" class="m3-switch-track rounded-full bg-primary flex items-center justify-end shrink-0">
+            <span class="m3-switch-thumb rounded-full bg-on-primary block"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Flexible empty space -->
+    <div class="flex-1 min-h-[32px]"></div>
+
+    <!-- 4, 5, 6, 7. Heading, body, primary CTA, text link -->
+    <section class="flex flex-col gap-5">
+      <div class="flex flex-col gap-3">
+        <h1 class="perm-heading font-display text-on-background text-balance" data-design-text-token="dialog-title">
+          Habilite a permissão de acesso a todos os arquivos para explorar o Folio!
+        </h1>
+        <p class="font-body text-body-lg text-on-surface-muted text-pretty" data-design-text-token="body-lg">
+          A permissão de Acesso a Todos os Arquivos é necessária para acessar fotos e vídeos no seu dispositivo. Conceda esta permissão ao Folio para assegurar o uso normal do app.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-2 pt-1">
+        <!-- COMPONENT: button-primary -->
+        <button data-component-id="button-primary" data-component-type="button" data-component-variant="primary" type="button" class="w-full h-14 rounded-button bg-primary text-on-primary font-button text-button-lg flex items-center justify-center transition-opacity duration-state-change ease-state-change hover:opacity-90 active:opacity-80">
+          <span data-design-text-token="button-lg">Vá agora</span>
+        </button>
+
+        <button type="button" class="w-full h-12 rounded-button bg-transparent text-on-surface-muted font-label text-label-lg flex items-center justify-center transition-colors duration-state-change ease-state-change hover:text-on-surface active:bg-white/10">
+          <span data-design-text-token="label-lg">Sobre esta permissão</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+
+</body></html>
