@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:folio/core/app_colors.dart';
 import 'package:folio/core/app_images.dart';
+import 'package:folio/core/fade_route.dart';
+import 'package:folio/screens/read_device/read_device_screen.dart';
 import 'package:folio/screens/permission_access/widgets/dialog_permission_access.dart';
 import 'package:folio/widgets/glass.dart';
 import 'package:folio/widgets/primary_button.dart';
@@ -22,6 +24,12 @@ class _PermissionAccessScreenState extends State<PermissionAccessScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    controller.granted.addListener(_onGrantedChanged);
+  }
+
+  void _onGrantedChanged() {
+    if (!controller.granted.value || !mounted) return;
+    Navigator.of(context).pushReplacement(FadeRoute(const ReadDeviceScreen()));
   }
 
   @override
@@ -32,6 +40,7 @@ class _PermissionAccessScreenState extends State<PermissionAccessScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    controller.granted.removeListener(_onGrantedChanged);
     controller.dispose();
     super.dispose();
   }
