@@ -156,8 +156,6 @@ h1{margin:0 0 12px;font-size:31px;line-height:1.1;font-weight:800;letter-spacing
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:48px 0;font-size:15px}
 
 /* Botão flutuante (FAB do Material 3) em vidro */
-.fab{position:absolute;right:20px;bottom:24px;z-index:5;width:60px;height:60px;border-radius:20px;display:flex;align-items:center;justify-content:center;color:var(--accent);background:rgba(122,128,255,.28);border:1px solid var(--glass-line);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 28px rgba(0,0,0,.45)}
-.fab:active{background:rgba(122,128,255,.42)}
 /* Pasta */
 .igrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px 8px 96px}
 .tile{position:relative;display:block;width:100%;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--surface)}
@@ -325,9 +323,7 @@ h1{margin:0 0 12px;font-size:31px;line-height:1.1;font-weight:800;letter-spacing
       <button data-sort="recent">Recentes</button>
     </div>
     <div class="scroll"><div class="fgrid" id="fGrid"></div>
-      <p class="muted" style="margin:-8px 24px 24px;font-size:13px;line-height:1.45">Toque no botão + para testar o editor com fotos do seu aparelho. Elas aparecem na pasta Importadas.</p>
     </div>
-    <button class="fab" id="fAddBtn" aria-label="Adicionar fotos do aparelho para testar" data-icon="plus" data-size="26"></button>
   </section>
 
   <!-- 4. Dentro da pasta -->
@@ -384,7 +380,6 @@ h1{margin:0 0 12px;font-size:31px;line-height:1.1;font-weight:800;letter-spacing
 
   <div id="overlay"></div>
   <div id="toast" role="status" aria-live="polite"></div>
-  <input type="file" id="pick" accept="image/*" multiple hidden>
 </div>
 
 <script>
@@ -670,23 +665,6 @@ $('#fGrid').addEventListener('click',e=>{const b=e.target.closest('.fcard');if(!
 $('#fSorts').addEventListener('click',e=>{const b=e.target.closest('[data-sort]');if(!b)return;S.sort=b.dataset.sort;renderFolders()});
 $('#fSearchBtn').onclick=()=>{const r=$('#fSearchRow');r.hidden=!r.hidden;if(!r.hidden)$('#fSearch').focus();else{S.q='';$('#fSearch').value='';renderFolders()}};
 $('#fSearch').addEventListener('input',e=>{S.q=e.target.value;renderFolders()});
-$('#fAddBtn').onclick=()=>$('#pick').click();
-$('#pick').addEventListener('change',e=>{
-  const files=Array.from(e.target.files||[]).filter(f=>/^image\//.test(f.type));e.target.value='';
-  if(!files.length)return;
-  let f=folder('importadas');
-  if(!f){f={id:'importadas',name:'Importadas',count:0,recent:0,items:[]};S.folders.push(f)}
-  let done=0;
-  files.forEach((file,i)=>{
-    const url=URL.createObjectURL(file),im=new Image();
-    im.onload=()=>{
-      f.items.unshift({id:'imp-'+Date.now()+'-'+i,folder:'importadas',kind:'url',url,w:im.naturalWidth,h:im.naturalHeight,name:file.name,date:new Date(file.lastModified||Date.now()),created:new Date(file.lastModified||Date.now()),kb:Math.round(file.size/1024*100)/100,fav:false});
-      f.count++;if(++done===files.length){renderFolders();toast(done+(done>1?' fotos adicionadas':' foto adicionada')+' em Importadas')}
-    };
-    im.onerror=()=>{if(++done===files.length)renderFolders()};
-    im.src=url;
-  });
-});
 
 /* ---------- 4: dentro da pasta ---------- */
 const orderedItems=f=>{const it=getItems(f);return S.order==='new'?it:it.slice().reverse()};
