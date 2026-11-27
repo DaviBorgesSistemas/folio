@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:folio/screens/welcome/widget/founded_images_tile.dart';
 import 'package:folio/widgets/app_snack_bar.dart';
 import 'package:folio/widgets/folio_app_bar.dart';
-import 'package:photo_manager/photo_manager.dart';
 
 import '../../core/fade_route.dart';
 import '../../widgets/primary_button.dart';
